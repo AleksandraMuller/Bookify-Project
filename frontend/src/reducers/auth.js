@@ -10,5 +10,6 @@ const initialState = {
 
 export const auth = createSlice({
   name: "auth",
-  initialState
+  initialState,
+  reducers: {}
 });

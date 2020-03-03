@@ -1,8 +1,10 @@
 import React from "react";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
 import { Main } from "./components/Main";
+import { Register } from "./components/Register";
 import { auth } from "./reducers/auth";
 
 const reducer = combineReducers({
@@ -14,7 +16,16 @@ const store = configureStore({ reducer });
 export const App = () => {
   return (
     <Provider store={store}>
-      <Main />
+      <BrowserRouter>
+        <Switch>
+          <Route path="/" exact>
+            <Main />
+          </Route>
+          <Route path="/register" exact>
+            <Register />
+          </Route>
+        </Switch>
+      </BrowserRouter>
     </Provider>
   );
 };
