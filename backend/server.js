@@ -77,6 +77,15 @@ app.post("/sessions", async (req, res) => {
   }
 });
 
+//SECRETS
+
+//Autorization for the super secret  message, only available for authenticated users
+
+app.get("/secrets", authenticateUser);
+app.get("/secrets", (req, res) => {
+  res.json({ secret: "this is the secret" });
+});
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);

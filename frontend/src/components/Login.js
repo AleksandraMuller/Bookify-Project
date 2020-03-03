@@ -13,10 +13,6 @@ export const Login = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  // const token = useSelector(store => store.auth.accessToken);
-  // const userId = useSelector(store => store.auth.userId);
-  // const name = useSelector(store => store.auth.name);
-
   const handleLoginUser = async event => {
     event.preventDefault();
 
