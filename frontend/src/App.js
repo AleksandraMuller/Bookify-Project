@@ -5,6 +5,7 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
 import { Main } from "./components/Main";
 import { Register } from "./components/Register";
+import { Login } from "./components/Login";
 import { auth } from "./reducers/auth";
 
 const reducer = combineReducers({
@@ -23,6 +24,9 @@ export const App = () => {
           </Route>
           <Route path="/register" exact>
             <Register />
+          </Route>
+          <Route path="/login" exact>
+            <Login />
           </Route>
         </Switch>
       </BrowserRouter>

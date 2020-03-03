@@ -11,5 +11,18 @@ const initialState = {
 export const auth = createSlice({
   name: "auth",
   initialState,
-  reducers: {}
+  reducers: {
+    setToken: (state, action) => {
+      state.accessToken = action.payload;
+    },
+    setUser: (state, action) => {
+      state.userId = action.payload;
+    },
+    setLoggedIn: (state, action) => {
+      state.loggedIn = action.payload;
+    },
+    setName: (state, action) => {
+      state.name = action.payload;
+    }
+  }
 });
