@@ -1,9 +1,20 @@
-import React from 'react'
+import React from "react";
+import { Provider } from "react-redux";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+
+import { Main } from "./components/Main";
+import { auth } from "./reducers/auth";
+
+const reducer = combineReducers({
+  auth: auth.reducer
+});
+
+const store = configureStore({ reducer });
 
 export const App = () => {
   return (
-    <div>
-      Find me in src/app.js!
-    </div>
-  )
-}
+    <Provider store={store}>
+      <Main />
+    </Provider>
+  );
+};
