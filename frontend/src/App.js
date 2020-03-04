@@ -7,6 +7,7 @@ import { Main } from "./components/Main";
 import { Register } from "./components/Register";
 import { Login } from "./components/Login";
 import { Welcome } from "./components/Welcome";
+import { Details } from "./components/Details";
 import { auth } from "./reducers/auth";
 
 const reducer = combineReducers({
@@ -31,6 +32,9 @@ export const App = () => {
           </Route>
           <Route path="/welcome" exact>
             <Welcome />
+          </Route>
+          <Route path="/details/:bookId" exact>
+            <Details />
           </Route>
         </Switch>
       </BrowserRouter>

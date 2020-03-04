@@ -6,19 +6,45 @@ import { auth } from "../reducers/auth";
 
 export const Welcome = () => {
   const booksArray = JSON.parse(window.sessionStorage.getItem("booksArray"));
-  // const username = JSON.parse(window.sessionStorage.getItem("username"));
 
   const [books, setBooks] = useState(booksArray);
   const [searchText, setSearchText] = useState("");
   const [start, setStart] = useState(false);
   const [message, setMessage] = useState(false);
 
-  // const dispatch = useDispatch();
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const token = useSelector(store => store.auth.accessToken);
   const userId = useSelector(store => store.auth.userId);
   const name = useSelector(store => store.auth.name);
+  const loggedIn = useSelector(store => store.auth.loggedIn);
+
+  console.log(loggedIn);
+
+  const myStorage = window.localStorage;
+  const mySessions = window.sessionStorage;
+  console.log(myStorage);
+  console.log(mySessions);
+
+  // localStorage.setItem("accessToken", JSON.stringify(token));
+
+  // useEffect(() => {
+  //   fetch("http://localhost:3001/secrets", {
+  //     method: "GET",
+  //     headers: { Authorization: localStorage.getItem("accessToken") }
+  //   })
+  //     .then(res => {
+  //       if (!res.ok) {
+  //         // !TODO: Handle status 401 and show error message.
+  //       }
+  //       return res.json();
+  //       // console.log(res.json);
+  //     })
+  //     .then(json => {
+  //       setMessage(json.secret);
+  //     });
+  // }, []);
 
   // document.cookie(token);
   // sessionStorage.setItem("username", JSON.stringify(name));
@@ -28,7 +54,8 @@ export const Welcome = () => {
   //LOG OUT
   const handleLogOut = () => {
     history.push("/login");
-    window.localStorage.removeItem("accessToken");
+    dispatch(auth.actions.setLoggedOut());
+    // window.localStorage.removeItem("accessToken");
     //IMPROVE !!!!!!!
   };
 
@@ -41,7 +68,7 @@ export const Welcome = () => {
       .then(res => res.json())
       .then(json => {
         setBooks(json.items);
-        // sessionStorage.setItem("booksArray", JSON.stringify(json.items));
+        sessionStorage.setItem("booksArray", JSON.stringify(json.items));
         setSearchText("");
         setStart(true);
       })
@@ -52,6 +79,7 @@ export const Welcome = () => {
 
   const removeLocalHistory = () => {
     setBooks([]);
+    window.sessionStorage.removeItem("booksArray");
     //IMPROVE!!!!
   };
   // console.log(token);
@@ -93,7 +121,7 @@ export const Welcome = () => {
         ></input>
       </form>
 
-      <h2>Welcome {name}</h2>
+      <h2>Welcome {name} </h2>
 
       <button onClick={handleLogOut}>Log out</button>
       <h3>{message}</h3>

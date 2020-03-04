@@ -13,13 +13,22 @@ export const Login = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
+  const token = useSelector(store => store.auth.accessToken);
+
+  const myStorage = window.localStorage;
+  const mySessions = window.sessionStorage;
+  console.log(myStorage);
+  console.log(mySessions);
+
   const handleLoginUser = async event => {
     event.preventDefault();
 
     fetch(URL, {
       method: "POST",
       body: JSON.stringify({ email, password }),
-      headers: { "Content-Type": "application/json" }
+      headers: {
+        "Content-Type": "application/json"
+      }
     })
       .then(res => {
         if (res.ok) {

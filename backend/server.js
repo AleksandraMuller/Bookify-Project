@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import bcrypt from "bcrypt-nodejs";
 
 import { User } from "./models/User";
+import { Comment } from "./models/Comment";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/bookify";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -61,7 +62,6 @@ app.post("/users", async (req, res) => {
 });
 
 //LOGIN USER
-
 app.post("/sessions", async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
 
@@ -84,6 +84,39 @@ app.post("/sessions", async (req, res) => {
 app.get("/secrets", authenticateUser);
 app.get("/secrets", (req, res) => {
   res.json({ secret: "this is the secret" });
+});
+
+// SHOW COMMENTS
+app.get("/comment", async (req, res) => {
+  Comment.find((err, comments) => {
+    if (err) {
+      console.log(err);
+      res.status(404).json({ error: "Not found" });
+    } else {
+      res.json(comments);
+    }
+  });
+});
+
+// ADD BOOK + the COMMENT
+app.post("/comment", async (req, res) => {
+  // const { name } = req.body;
+  // const user = User.findOne({ name });
+  try {
+    const comment = new Comment({
+      comment: req.body.comment,
+      id: req.body.id,
+      title: req.body.title,
+      authors: req.body.authors,
+      description: req.body.description
+    });
+    await comment.save();
+    res.json(comment);
+  } catch (err) {
+    res
+      .status(400)
+      .json({ errors: err.errors, comment: "Cannot add new comment" });
+  }
 });
 
 // Start the server

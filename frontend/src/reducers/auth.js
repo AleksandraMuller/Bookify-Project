@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  name: "",
+  name: localStorage.getItem("name"),
   email: "",
   userId: "",
-  accessToken: "",
-  loggedIn: false
+  accessToken: localStorage.getItem("accessToken"),
+  loggedIn: true
 };
 
 export const auth = createSlice({
@@ -14,15 +14,23 @@ export const auth = createSlice({
   reducers: {
     setToken: (state, action) => {
       state.accessToken = action.payload;
+      localStorage.setItem("accessToken", action.payload);
     },
     setUser: (state, action) => {
       state.userId = action.payload;
     },
     setLoggedIn: (state, action) => {
-      state.loggedIn = action.payload;
+      // state.loggedIn = action.payload;
+      state.loggedIn = true;
+    },
+    setLoggedOut: (state, action) => {
+      // state.loggedIn = action.payload;
+      state.loggedIn = false;
+      localStorage.clear();
     },
     setName: (state, action) => {
       state.name = action.payload;
+      localStorage.setItem("name", action.payload);
     }
   }
 });
