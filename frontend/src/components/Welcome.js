@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -26,30 +26,6 @@ export const Welcome = () => {
   const mySessions = window.sessionStorage;
   console.log(myStorage);
   console.log(mySessions);
-
-  // localStorage.setItem("accessToken", JSON.stringify(token));
-
-  // useEffect(() => {
-  //   fetch("http://localhost:3001/secrets", {
-  //     method: "GET",
-  //     headers: { Authorization: localStorage.getItem("accessToken") }
-  //   })
-  //     .then(res => {
-  //       if (!res.ok) {
-  //         // !TODO: Handle status 401 and show error message.
-  //       }
-  //       return res.json();
-  //       // console.log(res.json);
-  //     })
-  //     .then(json => {
-  //       setMessage(json.secret);
-  //     });
-  // }, []);
-
-  // document.cookie(token);
-  // sessionStorage.setItem("username", JSON.stringify(name));
-
-  // console.log(JSON.stringify(name));
 
   //LOG OUT
   const handleLogOut = () => {
@@ -81,34 +57,6 @@ export const Welcome = () => {
     window.sessionStorage.removeItem("booksArray");
     //IMPROVE!!!!
   };
-  // console.log(token);
-  // //Authorization of the logged in user via accessToken and sending out the secret
-  // useEffect(() => {
-  //   if (userId) {
-  //     fetch("http://localhost:8080/secrets", {
-  //       method: "GET",
-  //       headers: { Authorization: token }
-  //     })
-  //       .then(res => {
-  //         if (!res.ok) {
-  //           console.log("Failed");
-  //           // !TODO: Handle status 401 and show error message.
-  //         }
-  //         return res.json();
-  //         // console.log(res.json);
-  //       })
-  //       .then(json => {
-  //         console.log(json);
-
-  //         setMessage(json.secret);
-  //       });
-  //   }
-  // }, [userId]);
-
-  // console.log(token);
-
-  // window.localStorage.setItem("accessToken", JSON.stringify(token));
-  // window.localStorage.getItem("accessToken");
 
   return (
     <div>

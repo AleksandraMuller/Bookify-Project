@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-// import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-import { auth } from "../reducers/auth";
 const URL = "http://localhost:8080/users";
 
 export const Register = () => {
@@ -11,7 +9,6 @@ export const Register = () => {
   const [password, setPassword] = useState();
   const [errorText, setErrorText] = useState(false);
   const history = useHistory();
-  // const dispatch = useDispatch();
 
   const handleRegister = event => {
     event.preventDefault();

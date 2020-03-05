@@ -5,12 +5,10 @@ import moment from "moment";
 
 import { Review } from "./Review";
 import { auth } from "reducers/auth";
-import { Profile } from "./Profile";
 
 export const Details = () => {
   const [details, setDetails] = useState([]);
   const [filtered, setFiltered] = useState([]);
-  const [authorFiltered, setAuthorFiltered] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -21,7 +19,6 @@ export const Details = () => {
   const { bookId } = useParams();
   const token = useSelector(store => store.auth.accessToken);
   const name = useSelector(store => store.auth.name);
-  const loggedIn = useSelector(store => store.auth.loggedIn);
 
   const fetchData = async () => {
     const resp = await fetch(
@@ -48,17 +45,6 @@ export const Details = () => {
         json.map(j => {
           const filtered = json.filter(j => bookId === j.id);
           setFiltered(filtered);
-          console.log(filtered);
-
-          // const filterByAuthorName = filtered.filter(
-          //   n => n.authorName === name
-          // );
-          // if (filterByAuthorName) {
-          //   dispatch(auth.actions.setValidate());
-          // }
-
-          // console.log(test);
-          // console.log(name);
         });
       });
     // setLoading(false);
@@ -123,12 +109,7 @@ export const Details = () => {
                     name={review.authorName}
                     review={review.review}
                     time={moment(review.createdAt).fromNow()}
-                    // reviewId={review._id}
-                    // authorFiltered={authorFiltered}
-                    // reviews={filtered}
-                    // setFiltered={setFiltered}
                   ></Review>
-                  {/* {!loggedIn && <Profile reviewId={review._id}></Profile>} */}
                 </div>
               );
             })}
