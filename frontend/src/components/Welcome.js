@@ -16,7 +16,7 @@ export const Welcome = () => {
   const dispatch = useDispatch();
 
   const token = useSelector(store => store.auth.accessToken);
-  const userId = useSelector(store => store.auth.userId);
+
   const name = useSelector(store => store.auth.name);
   const loggedIn = useSelector(store => store.auth.loggedIn);
 
@@ -55,8 +55,7 @@ export const Welcome = () => {
   const handleLogOut = () => {
     history.push("/login");
     dispatch(auth.actions.setLoggedOut());
-    // window.localStorage.removeItem("accessToken");
-    //IMPROVE !!!!!!!
+    window.sessionStorage.removeItem("booksArray");
   };
 
   const handleSubmit = event => {
@@ -113,22 +112,32 @@ export const Welcome = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          placeholder="Search"
-          value={searchText}
-          onChange={event => setSearchText(event.target.value)}
-        ></input>
-      </form>
+      {loggedIn && token && (
+        <div>
+          {" "}
+          <form onSubmit={handleSubmit}>
+            <input
+              placeholder="Search"
+              value={searchText}
+              onChange={event => setSearchText(event.target.value)}
+            ></input>
+          </form>
+          <h2>Welcome {name} </h2>
+          <button onClick={handleLogOut}>Log out</button>
+          <h3>{message}</h3>
+          <button onClick={removeLocalHistory}>Clear search</button>
+        </div>
+      )}
 
-      <h2>Welcome {name} </h2>
+      {!token && (
+        <div>
+          ERROR! NO access permitted!{" "}
+          <button onClick={() => history.push("/")}>Back to Main Page</button>
+        </div>
+      )}
 
-      <button onClick={handleLogOut}>Log out</button>
-      <h3>{message}</h3>
-
-      <button onClick={removeLocalHistory}>Clear search</button>
-
-      {books !== null &&
+      {token &&
+        books !== null &&
         books.map(book => {
           return (
             <div key={book.id}>

@@ -8,6 +8,8 @@ import { Register } from "./components/Register";
 import { Login } from "./components/Login";
 import { Welcome } from "./components/Welcome";
 import { Details } from "./components/Details";
+import { Profile } from "./components/Profile";
+
 import { auth } from "./reducers/auth";
 
 const reducer = combineReducers({
@@ -35,6 +37,9 @@ export const App = () => {
           </Route>
           <Route path="/details/:bookId" exact>
             <Details />
+          </Route>
+          <Route path="/profile" exact>
+            <Profile />
           </Route>
         </Switch>
       </BrowserRouter>

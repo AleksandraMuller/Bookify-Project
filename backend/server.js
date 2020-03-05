@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 import bcrypt from "bcrypt-nodejs";
 
 import { User } from "./models/User";
-import { Comment } from "./models/Comment";
+import { Review } from "./models/Review";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/bookify";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -36,6 +36,40 @@ const authenticateUser = async (req, res, next) => {
       .status(403)
       .json({ message: "Access token missing or invalid", errors: err.errors });
   }
+};
+
+const checkReviewOwnership = async (req, res, next) => {
+  const { reviewId } = req.params;
+
+  Review.findById(reviewId, async (err, foundReview) => {
+    const user = await User.findById({
+      _id: req.body._id
+    });
+    if (err) {
+      console.log(err);
+    } else {
+      if (foundReview.author === user) {
+        next();
+      } else {
+        req.flash("error", "You dont have the permission to do that");
+      }
+    }
+  });
+
+  // const review = await Review.find({
+  //   // _id: req.params._id,
+  //   authorName: req.body.authorName
+  // });
+  // const user = await User.find({
+  //   // _id: req.params._id,
+  //   name: req.body.name
+  // });
+  // if (review === user) {
+  //   console.log("works");
+  //   next();
+  // } else {
+  //   ("not working");
+  // }
 };
 
 // Start defining your routes here
@@ -87,31 +121,32 @@ app.get("/secrets", (req, res) => {
 });
 
 // SHOW COMMENTS
-app.get("/comment", async (req, res) => {
-  Comment.find((err, comments) => {
+app.get("/review", async (req, res) => {
+  Review.find((err, reviews) => {
     if (err) {
       console.log(err);
       res.status(404).json({ error: "Not found" });
     } else {
-      res.json(comments);
+      res.json(reviews);
     }
   });
 });
 
 // ADD BOOK + the COMMENT
-app.post("/comment", async (req, res) => {
+app.post("/review", async (req, res) => {
   // const { name } = req.body;
   // const user = User.findOne({ name });
   try {
-    const comment = new Comment({
-      comment: req.body.comment,
+    const review = new Review({
+      review: req.body.review,
       id: req.body.id,
       title: req.body.title,
       authors: req.body.authors,
-      description: req.body.description
+      description: req.body.description,
+      authorName: req.body.authorName
     });
-    await comment.save();
-    res.json(comment);
+    await review.save();
+    res.json(review);
   } catch (err) {
     res
       .status(400)
@@ -119,6 +154,21 @@ app.post("/comment", async (req, res) => {
   }
 });
 
+//DELETE ONE REVIEW
+// app.post("/:reviewId", checkReviewOwnership);
+app.delete("/:reviewId", async (req, res) => {
+  const { reviewId } = req.params;
+  try {
+    const remove = await Review.findByIdAndDelete(reviewId);
+    remove.save();
+    res.status(201).json(remove);
+  } catch (err) {
+    res.status(400).json({
+      message: "Cannot delete",
+      errors: err.errors
+    });
+  }
+});
 // Start the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
