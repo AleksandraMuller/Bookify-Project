@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
 import { UserProfile } from "./UserProfile";
+import { Logout } from "./Logout";
 
 // const URL = "http://localhost:8080/:reviewId";
 
@@ -22,7 +23,11 @@ export const Profile = () => {
   return (
     <div>
       <div>
-        {token && <div>Your profile: {name}! </div>}
+        {token && (
+          <div>
+            <p>Your profile: {name}!</p> <Logout></Logout>{" "}
+          </div>
+        )}
         {filtered.map(usersArray => {
           return (
             <UserProfile

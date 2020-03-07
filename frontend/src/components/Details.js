@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import moment from "moment";
 
 import { Review } from "./Review";
-import { auth } from "reducers/auth";
+import { Logout } from "./Logout";
+import { BuyLink } from "./BuyLink";
 
 export const Details = () => {
   const [details, setDetails] = useState([]);
@@ -14,7 +15,6 @@ export const Details = () => {
   const [error, setError] = useState(false);
 
   const history = useHistory();
-  const dispatch = useDispatch();
 
   const { bookId } = useParams();
   const token = useSelector(store => store.auth.accessToken);
@@ -73,12 +73,6 @@ export const Details = () => {
       });
   };
 
-  //LOG OUT
-  const handleLogOut = () => {
-    dispatch(auth.actions.setLoggedOut());
-    history.push("/login");
-  };
-
   return (
     <section className="details-section">
       {loading && !error && token && (
@@ -88,12 +82,14 @@ export const Details = () => {
       {!error && !loading && token && (
         <div>
           <h3>You are logged in as {name}</h3>
-          <button onClick={handleLogOut}>Log out</button>
+          <Logout></Logout>
           <button onClick={() => history.push("/profile")}>
             Go to my profile
           </button>
           <h2>{details.volumeInfo.title}</h2>
           <h4>{details.volumeInfo.authors}</h4>
+          <BuyLink sales={details.saleInfo.buyLink}></BuyLink>
+
           <button onClick={() => history.push("/welcome")}>Back</button>
 
           <input

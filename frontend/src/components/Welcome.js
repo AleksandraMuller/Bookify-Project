@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { auth } from "../reducers/auth";
+import { Logout } from "./Logout";
+import { BuyLink } from "./BuyLink";
 
 export const Welcome = () => {
   const booksArray = JSON.parse(window.sessionStorage.getItem("booksArray"));
@@ -13,7 +15,6 @@ export const Welcome = () => {
   const [message, setMessage] = useState(false);
 
   const history = useHistory();
-  const dispatch = useDispatch();
 
   const token = useSelector(store => store.auth.accessToken);
 
@@ -21,18 +22,6 @@ export const Welcome = () => {
   const loggedIn = useSelector(store => store.auth.loggedIn);
 
   console.log(loggedIn);
-
-  const myStorage = window.localStorage;
-  const mySessions = window.sessionStorage;
-  console.log(myStorage);
-  console.log(mySessions);
-
-  //LOG OUT
-  const handleLogOut = () => {
-    history.push("/login");
-    dispatch(auth.actions.setLoggedOut());
-    window.sessionStorage.removeItem("booksArray");
-  };
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -71,7 +60,7 @@ export const Welcome = () => {
             ></input>
           </form>
           <h2>Welcome {name} </h2>
-          <button onClick={handleLogOut}>Log out</button>
+          <Logout></Logout>
           <h3>{message}</h3>
           <button onClick={removeLocalHistory}>Clear search</button>
         </div>
@@ -104,6 +93,7 @@ export const Welcome = () => {
                   : "Not provided"}
               </h3>
               <div>{book.volumeInfo.categories}</div>
+              <BuyLink sales={book.saleInfo.buyLink}></BuyLink>
               <button onClick={() => history.push(`/details/${book.id}`)}>
                 Show details
               </button>
