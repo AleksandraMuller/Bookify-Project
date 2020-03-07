@@ -23,6 +23,10 @@ export const App = () => {
     <Provider store={store}>
       <BrowserRouter>
         <Switch>
+          {/* // When you don't need to send props to the component of a route, you can use this format:
+              // <Route exact path="/" component={Main} />
+              // It'll save you some lines
+          */}
           <Route path="/" exact>
             <Main />
           </Route>

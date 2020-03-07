@@ -11,17 +11,24 @@ const URL = "http://localhost:8080/review";
 
 export const Details = () => {
   const [details, setDetails] = useState([]);
-  const [filtered, setFiltered] = useState([]);
-  const [reviews, setReviews] = useState();
+  const [filtered, setFiltered] = useState([]); // Better to rename this to reviews or reviewsHistory
+  const [reviews, setReviews] = useState(); // this could be userReview instead, to avoid confusion
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
   const history = useHistory();
 
   const { bookId } = useParams();
+  // I'd rather check if the user is logged in with store.auth.loggedIn property, instead of checking if a token exists, is more clean.
+  // But I've seen you have done it in other Components, I'd rather have like a traffic light in the App component,
+  // that I don't render certain routes until the user is logged in, that way you don't need to check in every page.
+  // React Router can be very handy for this purposes, we can review this next week :)
   const token = useSelector(store => store.auth.accessToken);
   const name = useSelector(store => store.auth.name);
 
+  // It's always handy to have a request handler module, that handles the fetches, headers, errors, json parsing and so, so you don't have to do it
+  // in every component. You will only call request.send(URL, method, headers, ...) and it does everything for you, and returns the result or an error.
+  // We can see how to do this next week also.
   const fetchData = async () => {
     const resp = await fetch(
       `https://www.googleapis.com/books/v1/volumes/${bookId}`
@@ -39,6 +46,7 @@ export const Details = () => {
     fetchData();
   }, []);
 
+  // You could extract this to a custom hook so it could be reused in profile page.
   useEffect(() => {
     // setLoading(true);
     fetch(`${URL}?bookId=${bookId}`)
@@ -49,6 +57,9 @@ export const Details = () => {
     // setLoading(false);
   }, [bookId]);
 
+  // Also, it's useful to extract all this calls to an API module, so here instead of doing the whole request
+  // you would only call this API module like: reviewAPI.addreview(data)
+  // And the review API is the one that has all this code below. Will make the Components more clean
   const addReview = event => {
     event.preventDefault();
 

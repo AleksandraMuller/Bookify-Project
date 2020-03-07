@@ -3,6 +3,8 @@ import { useHistory } from "react-router-dom";
 
 const URL = "http://localhost:8080/users";
 
+// Looks good! I'd only add a loader or something that tells the user that it is registering when it presses the register button
+
 export const Register = () => {
   const [name, setName] = useState();
   const [email, setEmail] = useState();

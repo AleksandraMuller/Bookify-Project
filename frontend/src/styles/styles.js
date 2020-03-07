@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+// I'd rather name this file main.js or mainStyles.js if all the styles are for Main Component.
+
 //MAIN COMPONENT
 export const Container = styled.div`
   width: 100%;

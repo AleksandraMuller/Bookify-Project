@@ -7,6 +7,7 @@ import { Logout } from "./Logout";
 import { BuyLink } from "./BuyLink";
 
 export const Welcome = () => {
+  // I'd also save/restore the searchText, to give the user more context of why those book results and not others.
   const booksArray = JSON.parse(window.sessionStorage.getItem("booksArray"));
 
   const [books, setBooks] = useState(booksArray);
@@ -76,6 +77,7 @@ export const Welcome = () => {
       {token &&
         books !== null &&
         books.map(book => {
+          // I'd extract this to it's own Book Component, and reuse this in other pages.
           return (
             <div key={book.id}>
               <img

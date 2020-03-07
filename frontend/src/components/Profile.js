@@ -28,6 +28,9 @@ export const Profile = () => {
             <p>Your profile: {name}!</p> <Logout></Logout>{" "}
           </div>
         )}
+        {/* The names filtered, usersArray and UserProfile are a bit confusing, but I know you're currently changing it. Here you could use Review Component. 
+            It'll have the delete review feature available even. 
+        */}
         {filtered.map(usersArray => {
           return (
             <UserProfile
