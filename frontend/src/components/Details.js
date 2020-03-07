@@ -9,7 +9,7 @@ import { auth } from "reducers/auth";
 export const Details = () => {
   const [details, setDetails] = useState([]);
   const [filtered, setFiltered] = useState([]);
-  const [reviews, setReviews] = useState([]);
+  const [reviews, setReviews] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
@@ -39,13 +39,10 @@ export const Details = () => {
 
   useEffect(() => {
     // setLoading(true);
-    fetch("http://localhost:8080/review")
+    fetch(`http://localhost:8080/review?bookId=${bookId}`)
       .then(res => res.json())
       .then(json => {
-        json.map(j => {
-          const filtered = json.filter(j => bookId === j.id);
-          setFiltered(filtered);
-        });
+        setFiltered(json);
       });
     // setLoading(false);
   }, [bookId]);
@@ -72,6 +69,7 @@ export const Details = () => {
       .then(json => {
         const newReviews = [...filtered, json];
         setFiltered(newReviews);
+        setReviews("");
       });
   };
 
@@ -98,7 +96,10 @@ export const Details = () => {
           <h4>{details.volumeInfo.authors}</h4>
           <button onClick={() => history.push("/welcome")}>Back</button>
 
-          <input onChange={e => setReviews(e.target.value)}></input>
+          <input
+            value={reviews}
+            onChange={e => setReviews(e.target.value)}
+          ></input>
           <button onClick={addReview}>Add Review</button>
           <ul>
             {filtered.map(review => {
@@ -106,6 +107,7 @@ export const Details = () => {
                 <div>
                   <Review
                     id={review._id}
+                    reviewId={review._id}
                     name={review.authorName}
                     review={review.review}
                     time={moment(review.createdAt).fromNow()}

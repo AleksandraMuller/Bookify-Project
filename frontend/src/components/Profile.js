@@ -9,17 +9,15 @@ export const Profile = () => {
   const [filtered, setFiltered] = useState([]);
   const name = useSelector(store => store.auth.name);
   const token = useSelector(store => store.auth.accessToken);
+  const [author, setAuthors] = useState();
 
   useEffect(() => {
-    fetch("http://localhost:8080/review")
+    fetch(`http://localhost:8080/profile?username=${name}`)
       .then(res => res.json())
       .then(json => {
-        console.log(json);
-        const newJson = json.filter(username => username.authorName === name);
-        setFiltered(newJson);
-        console.log(newJson);
+        setFiltered(json);
       });
-  }, [name]);
+  }, []);
 
   return (
     <div>
@@ -33,6 +31,7 @@ export const Profile = () => {
               authors={usersArray.authors}
               review={usersArray.review}
               title={usersArray.title}
+              bookId={usersArray._id}
             ></UserProfile>
           );
         })}

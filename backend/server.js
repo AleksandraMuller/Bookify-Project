@@ -121,8 +121,10 @@ app.get("/secrets", (req, res) => {
 });
 
 // SHOW COMMENTS
-app.get("/review", async (req, res) => {
-  Review.find((err, reviews) => {
+app.get("/profile", async (req, res) => {
+  const username = req.query.username;
+  console.log(username);
+  Review.find({ authorName: username }, (err, reviews) => {
     if (err) {
       console.log(err);
       res.status(404).json({ error: "Not found" });
@@ -132,14 +134,43 @@ app.get("/review", async (req, res) => {
   });
 });
 
+app.get("/review", async (req, res) => {
+  const bookId = req.query.bookId;
+  // console.log(bookId);
+  Review.find({ id: bookId }, (err, reviews) => {
+    if (err) {
+      console.log(err);
+      res.status(404).json({ error: "Not found" });
+    } else {
+      res.json(reviews);
+      // console.log(reviews);
+    }
+  });
+});
+
+// app.get("/profile", async (req, res) => {
+//   const bookId = req.query.bookId;
+//   const _id = req.query._id;
+//   console.log(bookId);
+//   console.log(_id);
+//   Review.find({ id: bookId }, (err, reviews) => {
+//     if (err) {
+//       console.log(err);
+//       res.status(404).json({ error: "Not found" });
+//     } else {
+//       res.json(reviews);
+//       console.log(reviews);
+//     }
+//   });
+// });
+
 // ADD BOOK + the COMMENT
 app.post("/review", async (req, res) => {
-  // const { name } = req.body;
-  // const user = User.findOne({ name });
   try {
     const review = new Review({
       review: req.body.review,
       id: req.body.id,
+      bookId: req.body.bookId,
       title: req.body.title,
       authors: req.body.authors,
       description: req.body.description,
@@ -155,7 +186,6 @@ app.post("/review", async (req, res) => {
 });
 
 //DELETE ONE REVIEW
-// app.post("/:reviewId", checkReviewOwnership);
 app.delete("/:reviewId", async (req, res) => {
   const { reviewId } = req.params;
   try {

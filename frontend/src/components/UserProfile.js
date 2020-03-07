@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 // const URL = "http://localhost:8080/:reviewId";
 
 export const UserProfile = props => {
-  const { reviewId, review, author, authors, title } = props;
+  const { review, author, authors, title, reviewId } = props;
 
   const token = useSelector(store => store.auth.accessToken);
+  const name = useSelector(store => store.auth.name);
 
   const handleDelete = (event, index) => {
     event.preventDefault();
