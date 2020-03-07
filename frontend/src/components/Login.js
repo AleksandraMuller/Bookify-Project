@@ -15,6 +15,7 @@ export const Login = () => {
 
   const token = useSelector(store => store.auth.accessToken);
 
+  // I know these are for debugging hehe. I'd rather use the devtools in chrome to see the storages or debug the code. It's faster and you don't have to be adding/removing code
   const myStorage = window.localStorage;
   const mySessions = window.sessionStorage;
   console.log(myStorage);
@@ -41,6 +42,7 @@ export const Login = () => {
       .then(json => {
         history.push("/welcome");
         console.log(json);
+        // You could have just one reducer that sets all these properties of the user in one go. And also keep these reducers if you use them in other parts of the code
         dispatch(auth.actions.setLoggedIn(json.loggedIn));
         dispatch(auth.actions.setToken(json.accessToken));
         dispatch(auth.actions.setUser(json.userId));

@@ -3,6 +3,8 @@ import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { auth } from "../reducers/auth";
 
+// Nice! :)
+
 export const BuyLink = props => {
   const { sales } = props;
 

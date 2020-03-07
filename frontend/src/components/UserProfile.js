@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 
 // const URL = "http://localhost:8080/:reviewId";
 
+// I'd rather deconstruct the props in the function params directly, saves you a line hehe.
+// export const UserProfile = ({ review, author, authors, title, reviewId }) => {
 export const UserProfile = props => {
   const { review, author, authors, title, reviewId } = props;
 
