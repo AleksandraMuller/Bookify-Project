@@ -38,39 +38,39 @@ const authenticateUser = async (req, res, next) => {
   }
 };
 
-const checkReviewOwnership = async (req, res, next) => {
-  const { reviewId } = req.params;
+// const checkReviewOwnership = async (req, res, next) => {
+//   const { reviewId } = req.params;
 
-  Review.findById(reviewId, async (err, foundReview) => {
-    const user = await User.findById({
-      _id: req.body._id
-    });
-    if (err) {
-      console.log(err);
-    } else {
-      if (foundReview.author === user) {
-        next();
-      } else {
-        req.flash("error", "You dont have the permission to do that");
-      }
-    }
-  });
+//   Review.findById(reviewId, async (err, foundReview) => {
+//     const user = await User.findById({
+//       _id: req.body._id
+//     });
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       if (foundReview.author === user) {
+//         next();
+//       } else {
+//         req.flash("error", "You dont have the permission to do that");
+//       }
+//     }
+//   });
 
-  // const review = await Review.find({
-  //   // _id: req.params._id,
-  //   authorName: req.body.authorName
-  // });
-  // const user = await User.find({
-  //   // _id: req.params._id,
-  //   name: req.body.name
-  // });
-  // if (review === user) {
-  //   console.log("works");
-  //   next();
-  // } else {
-  //   ("not working");
-  // }
-};
+// const review = await Review.find({
+//   // _id: req.params._id,
+//   authorName: req.body.authorName
+// });
+// const user = await User.find({
+//   // _id: req.params._id,
+//   name: req.body.name
+// });
+// if (review === user) {
+//   console.log("works");
+//   next();
+// } else {
+//   ("not working");
+// }
+// };
 
 // Start defining your routes here
 app.get("/", (req, res) => {
@@ -147,22 +147,6 @@ app.get("/review", async (req, res) => {
     }
   });
 });
-
-// app.get("/profile", async (req, res) => {
-//   const bookId = req.query.bookId;
-//   const _id = req.query._id;
-//   console.log(bookId);
-//   console.log(_id);
-//   Review.find({ id: bookId }, (err, reviews) => {
-//     if (err) {
-//       console.log(err);
-//       res.status(404).json({ error: "Not found" });
-//     } else {
-//       res.json(reviews);
-//       console.log(reviews);
-//     }
-//   });
-// });
 
 // ADD BOOK + the COMMENT
 app.post("/review", async (req, res) => {

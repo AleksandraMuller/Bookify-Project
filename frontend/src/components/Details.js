@@ -7,6 +7,8 @@ import { Review } from "./Review";
 import { Logout } from "./Logout";
 import { BuyLink } from "./BuyLink";
 
+const URL = "http://localhost:8080/review";
+
 export const Details = () => {
   const [details, setDetails] = useState([]);
   const [filtered, setFiltered] = useState([]);
@@ -39,7 +41,7 @@ export const Details = () => {
 
   useEffect(() => {
     // setLoading(true);
-    fetch(`http://localhost:8080/review?bookId=${bookId}`)
+    fetch(`${URL}?bookId=${bookId}`)
       .then(res => res.json())
       .then(json => {
         setFiltered(json);
@@ -50,7 +52,7 @@ export const Details = () => {
   const addReview = event => {
     event.preventDefault();
 
-    fetch("http://localhost:8080/review", {
+    fetch(`${URL}`, {
       method: "POST",
       headers: {
         Accept: "application/json",
