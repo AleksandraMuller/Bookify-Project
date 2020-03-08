@@ -1,5 +1,27 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import {
+  Container,
+  Image,
+  FlexContainer,
+  LeftContainer,
+  RightContainer,
+  LeftHeader,
+  LoginButton,
+  RegisterButton,
+  RightHeader,
+  Label,
+  Input,
+  InputContainer
+} from "../styles/styles_Register";
+
+import blackandwhite from "../assets/images/blackandwhite.jpg";
+import jungle from "../assets/images/jungle.jpg";
+import library from "../assets/images/library.jpg";
+import oldbooks from "../assets/images/oldbooks.jpg";
+import onlybooks from "../assets/images/onlybooks.jpg";
+import womanwithbook from "../assets/images/womanwithbook.jpg";
+import woman from "../assets/images/womanResized.jpg";
 
 const URL = "http://localhost:8080/users";
 
@@ -31,30 +53,45 @@ export const Register = () => {
   };
 
   return (
-    <div>
-      <button onClick={() => history.push("/login")}>SIGN IN</button>
-      <label>Name</label>
-      <input
-        type="text"
-        value={name}
-        onChange={event => setName(event.target.value)}
-      ></input>
+    <Container>
+      <FlexContainer>
+        <LeftContainer>
+          <Image src={womanwithbook} />
+          <LeftHeader>Already have an account?</LeftHeader>
+          <LoginButton onClick={() => history.push("/login")}>
+            SIGN IN
+          </LoginButton>
+        </LeftContainer>
+        <RightContainer>
+          <RightHeader>Become part of our book community today!</RightHeader>
+          <InputContainer>
+            <Label>Name</Label>
+            <Input
+              type="text"
+              value={name}
+              onChange={event => setName(event.target.value)}
+            ></Input>
 
-      <label>Email</label>
-      <input
-        type="email"
-        value={email}
-        onChange={event => setEmail(event.target.value)}
-      ></input>
+            <Label>Email</Label>
+            <Input
+              type="email"
+              value={email}
+              onChange={event => setEmail(event.target.value)}
+            ></Input>
 
-      <label>Password</label>
-      <input
-        type="password"
-        value={password}
-        onChange={event => setPassword(event.target.value)}
-      ></input>
-      <button onClick={event => handleRegister(event)}>REGISTER</button>
-      {errorText && <div>Could not add user. Please try again!</div>}
-    </div>
+            <Label>Password</Label>
+            <Input
+              type="password"
+              value={password}
+              onChange={event => setPassword(event.target.value)}
+            ></Input>
+          </InputContainer>
+          <RegisterButton onClick={event => handleRegister(event)}>
+            REGISTER
+          </RegisterButton>
+          {errorText && <div>Could not add user. Please try again!</div>}
+        </RightContainer>
+      </FlexContainer>
+    </Container>
   );
 };

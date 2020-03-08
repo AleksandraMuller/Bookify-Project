@@ -11,7 +11,7 @@ import {
   MainRegisterButtonText,
   RegisterButton,
   LoginButton
-} from "../styles/styles";
+} from "../styles/styles_Main";
 import { useHistory } from "react-router-dom";
 
 import redlawn from "../assets/videos/redlawn.mp4";
