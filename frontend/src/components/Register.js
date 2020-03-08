@@ -7,19 +7,15 @@ import {
   LeftContainer,
   RightContainer,
   LeftHeader,
-  LoginButton,
-  RegisterButton,
+  TransparentButton,
+  OrangeButton,
   RightHeader,
   Label,
   Input,
-  InputContainer
+  InputContainer,
+  Error
 } from "../styles/styles_Register";
 
-import blackandwhite from "../assets/images/blackandwhite.jpg";
-import jungle from "../assets/images/jungle.jpg";
-import library from "../assets/images/library.jpg";
-import oldbooks from "../assets/images/oldbooks.jpg";
-import onlybooks from "../assets/images/onlybooks.jpg";
 import womanwithbook from "../assets/images/womanwithbook.jpg";
 import woman from "../assets/images/womanResized.jpg";
 
@@ -58,9 +54,9 @@ export const Register = () => {
         <LeftContainer>
           <Image src={womanwithbook} />
           <LeftHeader>Already have an account?</LeftHeader>
-          <LoginButton onClick={() => history.push("/login")}>
+          <TransparentButton onClick={() => history.push("/login")}>
             SIGN IN
-          </LoginButton>
+          </TransparentButton>
         </LeftContainer>
         <RightContainer>
           <RightHeader>Become part of our book community today!</RightHeader>
@@ -86,10 +82,10 @@ export const Register = () => {
               onChange={event => setPassword(event.target.value)}
             ></Input>
           </InputContainer>
-          <RegisterButton onClick={event => handleRegister(event)}>
+          <OrangeButton onClick={event => handleRegister(event)}>
             REGISTER
-          </RegisterButton>
-          {errorText && <div>Could not add user. Please try again!</div>}
+          </OrangeButton>
+          {errorText && <Error>Could not add user. Please try again!</Error>}
         </RightContainer>
       </FlexContainer>
     </Container>

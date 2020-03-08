@@ -4,7 +4,6 @@ export const Container = styled.div`
   width: 100%;
   height: 100vh;
   overflow: hidden;
-  // background-image: linear-gradient(to bottom right, #c79081, #dfa579);
   background: #eee;
 `;
 
@@ -97,7 +96,7 @@ export const Image = styled.img`
   // opacity: 0.3;
 `;
 
-export const LoginButton = styled.button`
+export const TransparentButton = styled.button`
   color: #fff;
   background: transparent;
   // text-decoration: none;
@@ -119,7 +118,7 @@ export const LoginButton = styled.button`
   }
 `;
 
-export const RegisterButton = styled.button`
+export const OrangeButton = styled.button`
   color: #fff;
   background: #d35400;
   border: 4px solid #d35400;
@@ -190,4 +189,13 @@ export const InputContainer = styled.div`
   align-self: center;
   @media (min-width: 900px) {
   }
+`;
+
+export const Error = styled.div`
+  grid-column: 2 / span 3;
+  grid-row: 5 / span 1;
+  text-align: center;
+  align-self: center;
+  color: red;
+  font-family: "Libre Franklin", sans-serif;
 `;

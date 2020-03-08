@@ -1,6 +1,27 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  Container,
+  RightContainer,
+  LeftContainer,
+  FlexContainer,
+  Image,
+  RightHeader,
+  LeftHeader,
+  Span
+  // Error
+} from "../styles/styles_Login";
+import {
+  InputContainer,
+  TransparentButton,
+  Label,
+  Input,
+  OrangeButton,
+  Error
+} from "../styles/styles_Register";
+
+import library from "../assets/images/library.jpg";
 
 import { auth } from "../reducers/auth";
 
@@ -50,24 +71,39 @@ export const Login = () => {
   };
 
   return (
-    <div>
-      <label>Email</label>
-      <input
-        type="email"
-        value={email}
-        onChange={event => setEmail(event.target.value)}
-      ></input>
-      <label>Password</label>
-      <input
-        type="password"
-        value={password}
-        onChange={event => setPassword(event.target.value)}
-      ></input>
-      <button onClick={event => handleLoginUser(event)}>Login</button>
-      {errorText && <div>User not found, access forbidden</div>}
-      <button onClick={() => history.push("/register")}>
-        Sign up for an account
-      </button>
-    </div>
+    <Container>
+      <FlexContainer>
+        <LeftContainer>
+          <LeftHeader>
+            Welcome back!<Span>Login to your account:</Span>
+          </LeftHeader>
+          <InputContainer>
+            <Label>Email</Label>
+            <Input
+              type="email"
+              value={email}
+              onChange={event => setEmail(event.target.value)}
+            ></Input>
+            <Label>Password</Label>
+            <Input
+              type="password"
+              value={password}
+              onChange={event => setPassword(event.target.value)}
+            ></Input>
+          </InputContainer>
+          {errorText && <Error>User not found, access forbidden!</Error>}
+          <OrangeButton onClick={event => handleLoginUser(event)}>
+            Login
+          </OrangeButton>
+        </LeftContainer>
+        <RightContainer>
+          <Image src={library} />
+          <RightHeader>Not a member of our book community?</RightHeader>
+          <TransparentButton onClick={() => history.push("/register")}>
+            Register
+          </TransparentButton>
+        </RightContainer>
+      </FlexContainer>
+    </Container>
   );
 };
