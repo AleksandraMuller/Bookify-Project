@@ -5,13 +5,27 @@ import { useSelector } from "react-redux";
 import { auth } from "../reducers/auth";
 import { Logout } from "./Logout";
 import { BuyLink } from "./BuyLink";
+import { BookCard } from "./BookCard";
+
+import {
+  Container,
+  Header,
+  HeaderName,
+  HeaderForm,
+  Form,
+  Input,
+  OneCard,
+  CardContainer,
+  DetailsButton
+} from "../styles/styles_Welcome";
+import { Button, ButtonContainer } from "../styles/styles_Logout";
+import { Details } from "./Details";
 
 export const Welcome = () => {
   const booksArray = JSON.parse(window.sessionStorage.getItem("booksArray"));
 
   const [books, setBooks] = useState(booksArray);
   const [searchText, setSearchText] = useState("");
-  const [start, setStart] = useState(false);
   const [message, setMessage] = useState(false);
 
   const history = useHistory();
@@ -34,7 +48,6 @@ export const Welcome = () => {
         setBooks(json.items);
         sessionStorage.setItem("booksArray", JSON.stringify(json.items));
         setSearchText("");
-        setStart(true);
       })
       .catch(error => {
         console.log(error);
@@ -48,21 +61,25 @@ export const Welcome = () => {
   };
 
   return (
-    <div>
+    <Container>
       {loggedIn && token && (
         <div>
-          {" "}
-          <form onSubmit={handleSubmit}>
-            <input
-              placeholder="Search"
+          <Header>
+            <ButtonContainer>
+              <Logout></Logout>
+              <Button onClick={removeLocalHistory}>Clear search</Button>
+            </ButtonContainer>
+            <HeaderName>Welcome {name}! </HeaderName>
+          </Header>{" "}
+          <Form onSubmit={handleSubmit}>
+            <HeaderForm>Start exploring now:</HeaderForm>
+            <Input
+              placeholder="Search by title"
               value={searchText}
               onChange={event => setSearchText(event.target.value)}
-            ></input>
-          </form>
-          <h2>Welcome {name} </h2>
-          <Logout></Logout>
+            ></Input>
+          </Form>
           <h3>{message}</h3>
-          <button onClick={removeLocalHistory}>Clear search</button>
         </div>
       )}
 
@@ -72,34 +89,29 @@ export const Welcome = () => {
           <button onClick={() => history.push("/")}>Back to Main Page</button>
         </div>
       )}
+      <CardContainer>
+        {token &&
+          books !== null &&
+          books.map(book => {
+            return (
+              <OneCard key={book.id}>
+                <BuyLink sales={book.saleInfo.buyLink}></BuyLink>
+                <BookCard
+                  image={book.volumeInfo.imageLinks}
+                  title={book.volumeInfo.title}
+                  authors={book.volumeInfo.authors}
+                  categories={book.volumeInfo.categories}
+                ></BookCard>
 
-      {token &&
-        books !== null &&
-        books.map(book => {
-          return (
-            <div key={book.id}>
-              <img
-                src={
-                  book.volumeInfo.imageLinks === undefined
-                    ? null
-                    : `${book.volumeInfo.imageLinks.thumbnail}`
-                }
-              />
-
-              <h2>"{book.volumeInfo.title}"</h2>
-              <h3>
-                {book.volumeInfo.authors
-                  ? book.volumeInfo.authors.join(", ")
-                  : "Not provided"}
-              </h3>
-              <div>{book.volumeInfo.categories}</div>
-              <BuyLink sales={book.saleInfo.buyLink}></BuyLink>
-              <button onClick={() => history.push(`/details/${book.id}`)}>
-                Show details
-              </button>
-            </div>
-          );
-        })}
-    </div>
+                <DetailsButton
+                  onClick={() => history.push(`/details/${book.id}`)}
+                >
+                  Show details
+                </DetailsButton>
+              </OneCard>
+            );
+          })}
+      </CardContainer>
+    </Container>
   );
 };

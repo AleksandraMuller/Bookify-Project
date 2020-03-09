@@ -5,7 +5,7 @@ const initialState = {
   email: "",
   userId: "",
   accessToken: localStorage.getItem("accessToken"),
-  loggedIn: true,
+  loggedIn: localStorage.getItem("loggedIn"),
   reviewId: ""
 };
 
@@ -21,7 +21,8 @@ export const auth = createSlice({
       state.userId = action.payload;
     },
     setLoggedIn: (state, action) => {
-      state.loggedIn = true;
+      state.loggedIn = action.payload;
+      localStorage.setItem("loggedIn", action.payload);
     },
     setLoggedOut: (state, action) => {
       state.loggedIn = false;
