@@ -4,7 +4,9 @@ export const BuyLink = props => {
   const { sales } = props;
 
   return (
-    <ToBuy href={sales === undefined ? "Not available in store" : `${sales}`}>
+    <ToBuy
+      href={sales === undefined ? "Not available in store" : `${sales.buyLink}`}
+    >
       🛒
     </ToBuy>
   );

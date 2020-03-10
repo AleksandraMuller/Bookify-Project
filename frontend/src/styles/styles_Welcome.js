@@ -65,6 +65,37 @@ export const ToBuy = styled.a`
   grid-row: 1 / span 1;
   grid-column: 3 / span 1;
   text-decoration: none;
+  :hover {
+    -webkit-animation: pulse 1s ease-in;
+    -moz-animation: pulse 1s ease-in;
+    animation: pulse 1s ease-in;
+    -webkit-animation-iteration-count: infinite;
+    -moz-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+  }
+
+  @keyframes pulse {
+    0% {
+      -webkit-transform: scale(1);
+      opacity: 0;
+    }
+    25% {
+      -webkit-transform: scale(1.1);
+      opacity: 0.1;
+    }
+    50% {
+      -webkit-transform: scale(1.15);
+      opacity: 0.3;
+    }
+    75% {
+      -webkit-transform: scale(1.2);
+      opacity: 0.5;
+    }
+    100% {
+      -webkit-transform: scale(1.3);
+      opacity: 0;
+    }
+  }
 `;
 
 export const Image = styled.img`

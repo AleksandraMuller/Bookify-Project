@@ -95,7 +95,7 @@ export const Welcome = () => {
           books.map(book => {
             return (
               <OneCard key={book.id}>
-                <BuyLink sales={book.saleInfo.buyLink}></BuyLink>
+                <BuyLink sales={book.saleInfo}></BuyLink>
                 <BookCard
                   image={book.volumeInfo.imageLinks}
                   title={book.volumeInfo.title}

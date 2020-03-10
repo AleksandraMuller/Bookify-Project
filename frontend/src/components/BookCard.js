@@ -7,7 +7,7 @@ export const BookCard = ({ image, title, authors, categories }) => {
     <>
       <Image src={image === undefined ? null : `${image.thumbnail}`} />
       <DetailsContainer>
-        <h3>"{title}"</h3>
+        <h3>{title}</h3>
         <p>by {authors ? authors.join(", ") : "Not provided"}</p>
         {/* <p>{categories}</p> */}
       </DetailsContainer>

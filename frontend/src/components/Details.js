@@ -3,9 +3,13 @@ import { useHistory, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import moment from "moment";
 
+import { ButtonBack, ButtonProfile } from "../styles/styles_Details";
+import { Container, Header, HeaderName } from "../styles/styles_Welcome";
+import { ButtonContainer } from "../styles/styles_Logout";
+
 import { Review } from "./Review";
 import { Logout } from "./Logout";
-import { BuyLink } from "./BuyLink";
+import { DetailsCard } from "./DetailsCard";
 
 const URL = "http://localhost:8080/review";
 
@@ -76,25 +80,40 @@ export const Details = () => {
   };
 
   return (
-    <section className="details-section">
+    <Container className="details-section">
       {loading && !error && token && (
         <h2 className="loading">Loading details...</h2>
       )}
       {error && token && <h2 className="loading">Book not found</h2>}
       {!error && !loading && token && (
         <div>
-          <h3>You are logged in as {name}</h3>
-          <Logout></Logout>
-          <button onClick={() => history.push("/profile")}>
-            Go to my profile
-          </button>
-          <h2>{details.volumeInfo.title}</h2>
-          <h4>{details.volumeInfo.authors}</h4>
-          <BuyLink sales={details.saleInfo.buyLink}></BuyLink>
-
-          <button onClick={() => history.push("/welcome")}>Back</button>
+          <Header>
+            <ButtonContainer>
+              <Logout></Logout>
+              <ButtonBack onClick={() => history.push("/welcome")}>
+                Back
+              </ButtonBack>
+            </ButtonContainer>
+            {/* <HeaderName>You are logged in as {name}! </HeaderName> */}
+            <ButtonProfile onClick={() => history.push("/profile")}>
+              {name}, go to your profile
+            </ButtonProfile>
+          </Header>
+          <DetailsCard
+            title={details.volumeInfo.title}
+            authors={details.volumeInfo.authors}
+            image={details.volumeInfo.imageLinks}
+            categories={details.volumeInfo.categories}
+            description={details.volumeInfo.description}
+            published={details.volumeInfo.publishedDate}
+            price={details.saleInfo.retailPrice}
+            cart={details.saleInfo}
+            publisher={details.volumeInfo.publisher}
+            pages={details.volumeInfo.pageCount}
+          ></DetailsCard>
 
           <input
+            type="textarea"
             value={reviews}
             onChange={e => setReviews(e.target.value)}
           ></input>
@@ -122,6 +141,6 @@ export const Details = () => {
           <button onClick={() => history.push("/")}>Back to Main Page</button>
         </div>
       )}
-    </section>
+    </Container>
   );
 };
