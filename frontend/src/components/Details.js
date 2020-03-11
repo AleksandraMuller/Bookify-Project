@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import moment from "moment";
 
 import {
-  ButtonBack,
   ButtonProfile,
   HeaderReview,
   InputReview,
@@ -13,6 +12,7 @@ import {
 } from "../styles/styles_Details";
 import { Container, Header, HeaderName } from "../styles/styles_Welcome";
 import { ButtonContainer } from "../styles/styles_Logout";
+import { BlueButton } from "../styles/styles_reusables";
 
 import { Review } from "./Review";
 import { Logout } from "./Logout";
@@ -22,8 +22,8 @@ const URL = "http://localhost:8080/review";
 
 export const Details = () => {
   const [details, setDetails] = useState([]);
-  const [filtered, setFiltered] = useState([]);
-  const [reviews, setReviews] = useState();
+  const [reviews, setReviews] = useState([]);
+  const [userReview, setUserReview] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
@@ -55,7 +55,7 @@ export const Details = () => {
     fetch(`${URL}?bookId=${bookId}`)
       .then(res => res.json())
       .then(json => {
-        setFiltered(json);
+        setReviews(json);
       });
     // setLoading(false);
   }, [bookId]);
@@ -70,7 +70,7 @@ export const Details = () => {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        review: reviews,
+        review: userReview,
         id: bookId,
         description: details.volumeInfo.description,
         title: details.volumeInfo.title,
@@ -80,11 +80,11 @@ export const Details = () => {
     })
       .then(res => res.json())
       .then(json => {
-        const newReviews = [...filtered, json];
-        setFiltered(
+        const newReviews = [...reviews, json];
+        setReviews(
           newReviews.sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
         );
-        setReviews("");
+        setUserReview("");
       });
   };
 
@@ -99,9 +99,9 @@ export const Details = () => {
           <Header>
             <ButtonContainer>
               <Logout></Logout>
-              <ButtonBack onClick={() => history.push("/welcome")}>
+              <BlueButton onClick={() => history.push("/welcome")}>
                 Back
-              </ButtonBack>
+              </BlueButton>
             </ButtonContainer>
             {/* <HeaderName>You are logged in as {name}! </HeaderName> */}
             <ButtonProfile onClick={() => history.push("/profile")}>
@@ -125,13 +125,13 @@ export const Details = () => {
             <InputReview
               placeholder="Add a review.."
               type="textarea"
-              value={reviews}
-              onChange={e => setReviews(e.target.value)}
+              value={userReview}
+              onChange={e => setUserReview(e.target.value)}
             ></InputReview>
             <ButtonReview onClick={addReview}>Add review 😊</ButtonReview>
           </Form>
           <>
-            {filtered.map(review => {
+            {reviews.map(review => {
               return (
                 <Review
                   id={review._id}

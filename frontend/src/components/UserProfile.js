@@ -1,10 +1,19 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 
+import {
+  Container,
+  TopContainer,
+  BottomContainer,
+  Paragraph
+} from "../styles/styles_UserProfile";
+
+import { DeleteButton } from "../styles/styles_reusables";
+
 // const URL = "http://localhost:8080/:reviewId";
 
 export const UserProfile = props => {
-  const { review, author, authors, title, reviewId } = props;
+  const { review, authors, title, reviewId, time } = props;
 
   const token = useSelector(store => store.auth.accessToken);
   const name = useSelector(store => store.auth.name);
@@ -20,24 +29,29 @@ export const UserProfile = props => {
       }
     })
       .then(res => res.json())
-      .then(json => {
+      .then(() => {
         window.location.reload();
       });
   };
 
   return (
-    <div>
+    <>
       {token && (
-        <div>
-          <p>Title: {title}</p>
-          <p>Authors: {authors}</p>
-          <p>
-            Review: {review} // Author: {author}
-          </p>
+        <Container>
+          <TopContainer>
+            <div>
+              <Paragraph>
+                {title} by {authors} ~ {time}
+              </Paragraph>
+            </div>
+            <DeleteButton onClick={index => handleDelete(index)}>
+              Delete ❌
+            </DeleteButton>
+          </TopContainer>
 
-          <button onClick={index => handleDelete(index)}>Delete Review</button>
-        </div>
+          <BottomContainer> {review}</BottomContainer>
+        </Container>
       )}
-    </div>
+    </>
   );
 };

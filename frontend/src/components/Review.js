@@ -6,12 +6,12 @@ import {
   Container,
   Header,
   HeaderParagraph,
-  Span,
-  Button
+  Span
 } from "../styles/styles_Review";
+import { DeleteButton } from "../styles/styles_reusables";
 
 export const Review = props => {
-  const { id, review, name, time, reviewId } = props;
+  const { id, review, name, time, reviewId, image } = props;
   const currentUser = useSelector(state => state.auth.name);
 
   const isCurrentUser = name === currentUser;
@@ -34,13 +34,16 @@ export const Review = props => {
 
   return (
     <Container key={id}>
+      {image}
       <Header>
         <HeaderParagraph>
           <Span>{name}</Span> said {time}
         </HeaderParagraph>
-        {isCurrentUser && <Button onClick={handleDelete}>Delete ❌</Button>}
+        {isCurrentUser && (
+          <DeleteButton onClick={handleDelete}>Delete ❌</DeleteButton>
+        )}
       </Header>
-      <p>Review: {review}</p>
+      <p>{review}</p>
     </Container>
   );
 };

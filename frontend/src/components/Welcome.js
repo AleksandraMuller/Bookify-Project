@@ -18,8 +18,8 @@ import {
   CardContainer,
   DetailsButton
 } from "../styles/styles_Welcome";
+import { BlueButton } from "../styles/styles_reusables";
 import { Button, ButtonContainer } from "../styles/styles_Logout";
-import { Details } from "./Details";
 
 export const Welcome = () => {
   const booksArray = JSON.parse(window.sessionStorage.getItem("booksArray"));
@@ -67,9 +67,13 @@ export const Welcome = () => {
           <Header>
             <ButtonContainer>
               <Logout></Logout>
-              <Button onClick={removeLocalHistory}>Clear search</Button>
+              <BlueButton onClick={removeLocalHistory}>Clear search</BlueButton>
             </ButtonContainer>
-            <HeaderName>Welcome {name}! </HeaderName>
+            {/* <HeaderName> */}
+            <HeaderName onClick={() => history.push("/profile")}>
+              Welcome {name}! <ion-icon name="person-circle-outline"></ion-icon>
+            </HeaderName>
+            {/* </HeaderName> */}
           </Header>{" "}
           <Form onSubmit={handleSubmit}>
             <HeaderForm>Start exploring now:</HeaderForm>

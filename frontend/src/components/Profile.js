@@ -1,46 +1,57 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import moment from "moment";
 
 import { UserProfile } from "./UserProfile";
 import { Logout } from "./Logout";
 
+import { Container, Header } from "../styles/styles_Welcome";
+import { ButtonContainer } from "../styles/styles_Logout";
+import { UserContainer, MainTitle } from "../styles/styles_Profile";
+import { BlueButton } from "../styles/styles_reusables";
+
 // const URL = "http://localhost:8080/:reviewId";
 
 export const Profile = () => {
-  const [filtered, setFiltered] = useState([]);
+  const [reviews, setReviews] = useState([]);
   const name = useSelector(store => store.auth.name);
   const token = useSelector(store => store.auth.accessToken);
-  const [author, setAuthors] = useState();
+  const history = useHistory();
 
   useEffect(() => {
     fetch(`http://localhost:8080/profile?username=${name}`)
       .then(res => res.json())
       .then(json => {
-        setFiltered(json);
+        setReviews(json);
       });
   }, []);
 
   return (
-    <div>
-      <div>
-        {token && (
-          <div>
-            <p>Your profile: {name}!</p> <Logout></Logout>{" "}
-          </div>
-        )}
-        {filtered.map(usersArray => {
-          return (
-            <UserProfile
-              reviewId={usersArray._id}
-              author={usersArray.authorName}
-              authors={usersArray.authors}
-              review={usersArray.review}
-              title={usersArray.title}
-              bookId={usersArray._id}
-            ></UserProfile>
-          );
-        })}
-      </div>
-    </div>
+    <Container>
+      {token && (
+        <Header>
+          <ButtonContainer>
+            <Logout></Logout>
+            <BlueButton onClick={() => history.goBack()}>Back</BlueButton>
+          </ButtonContainer>
+          <UserContainer>You are logged in as: {name}</UserContainer>
+        </Header>
+      )}
+      <MainTitle>Here is the list of all your reviews 👇</MainTitle>
+      {reviews.map(review => {
+        return (
+          <UserProfile
+            reviewId={review._id}
+            author={review.authorName}
+            authors={review.authors}
+            review={review.review}
+            title={review.title}
+            bookId={review._id}
+            time={moment(review.createdAt).fromNow()}
+          ></UserProfile>
+        );
+      })}
+    </Container>
   );
 };

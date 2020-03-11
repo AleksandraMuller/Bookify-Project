@@ -16,13 +16,30 @@ export const Header = styled.div`
   justify-content: space-between;
 `;
 
-export const HeaderName = styled.h3`
-  color: #fff;
-  margin-right: 1rem;
+export const HeaderName = styled.button`
   align-self: center;
+  color: #fff;
+  margin-right: 2rem;
+  background: transparent;
+  border: 2px solid #fff;
+  float: left;
+  text-align: center;
   font-family: "Libre Franklin", sans-serif;
+  letter-spacing: 2px;
+  cursor: pointer;
+  margin-top: 0.3rem;
+  :hover {
+    color: #000;
+    background: #fff;
+    transform: translate(0, -3px);
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 8px 6px -6px black;
+  }
   @media (min-width: 900px) {
-    margin-right: 2rem;
+    margin-left: 2rem;
+    height: 2.5rem;
+    margin-top: 0;
   }
 `;
 
