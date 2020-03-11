@@ -131,7 +131,7 @@ app.get("/profile", async (req, res) => {
     } else {
       res.json(reviews);
     }
-  });
+  }).sort({ createdAt: "desc" });
 });
 
 app.get("/review", async (req, res) => {
@@ -145,7 +145,7 @@ app.get("/review", async (req, res) => {
       res.json(reviews);
       // console.log(reviews);
     }
-  });
+  }).sort({ createdAt: "desc" });
 });
 
 // ADD BOOK + the COMMENT

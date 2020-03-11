@@ -4,6 +4,7 @@ export const Container = styled.div`
   width: 100%;
   display: flex;
   background: #fff;
+  color: #333;
   flex-direction: column;
   font-family: "Libre Franklin", sans-serif;
   letter-spacing: 1px;

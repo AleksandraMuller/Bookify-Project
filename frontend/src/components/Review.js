@@ -2,6 +2,13 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 // const URL = "http://localhost:8080/:reviewId";
+import {
+  Container,
+  Header,
+  HeaderParagraph,
+  Span,
+  Button
+} from "../styles/styles_Review";
 
 export const Review = props => {
   const { id, review, name, time, reviewId } = props;
@@ -26,11 +33,14 @@ export const Review = props => {
   };
 
   return (
-    <div key={id}>
-      <p>
-        Review: {review} // Name: {name} // {time}
-      </p>
-      {isCurrentUser && <button onClick={handleDelete}>Delete</button>}
-    </div>
+    <Container key={id}>
+      <Header>
+        <HeaderParagraph>
+          <Span>{name}</Span> said {time}
+        </HeaderParagraph>
+        {isCurrentUser && <Button onClick={handleDelete}>Delete ❌</Button>}
+      </Header>
+      <p>Review: {review}</p>
+    </Container>
   );
 };

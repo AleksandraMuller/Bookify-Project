@@ -3,7 +3,14 @@ import { useHistory, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import moment from "moment";
 
-import { ButtonBack, ButtonProfile } from "../styles/styles_Details";
+import {
+  ButtonBack,
+  ButtonProfile,
+  HeaderReview,
+  InputReview,
+  ButtonReview,
+  Form
+} from "../styles/styles_Details";
 import { Container, Header, HeaderName } from "../styles/styles_Welcome";
 import { ButtonContainer } from "../styles/styles_Logout";
 
@@ -74,7 +81,9 @@ export const Details = () => {
       .then(res => res.json())
       .then(json => {
         const newReviews = [...filtered, json];
-        setFiltered(newReviews);
+        setFiltered(
+          newReviews.sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
+        );
         setReviews("");
       });
   };
@@ -111,28 +120,29 @@ export const Details = () => {
             publisher={details.volumeInfo.publisher}
             pages={details.volumeInfo.pageCount}
           ></DetailsCard>
-
-          <input
-            type="textarea"
-            value={reviews}
-            onChange={e => setReviews(e.target.value)}
-          ></input>
-          <button onClick={addReview}>Add Review</button>
-          <ul>
+          <HeaderReview>Leave your review here 👇</HeaderReview>
+          <Form onSubmit={addReview}>
+            <InputReview
+              placeholder="Add a review.."
+              type="textarea"
+              value={reviews}
+              onChange={e => setReviews(e.target.value)}
+            ></InputReview>
+            <ButtonReview onClick={addReview}>Add review 😊</ButtonReview>
+          </Form>
+          <>
             {filtered.map(review => {
               return (
-                <div>
-                  <Review
-                    id={review._id}
-                    reviewId={review._id}
-                    name={review.authorName}
-                    review={review.review}
-                    time={moment(review.createdAt).fromNow()}
-                  ></Review>
-                </div>
+                <Review
+                  id={review._id}
+                  reviewId={review._id}
+                  name={review.authorName}
+                  review={review.review}
+                  time={moment(review.createdAt).fromNow()}
+                ></Review>
               );
             })}
-          </ul>
+          </>
         </div>
       )}
       {!token && (
