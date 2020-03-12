@@ -7,7 +7,9 @@ export const BuyLink = props => {
     <ToBuy
       href={sales === undefined ? "Not available in store" : `${sales.buyLink}`}
     >
-      🛒
+      <span role="img" aria-labelledby="shopping cart">
+        🛒
+      </span>
     </ToBuy>
   );
 };

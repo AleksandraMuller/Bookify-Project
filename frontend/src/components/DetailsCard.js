@@ -1,6 +1,6 @@
 import React from "react";
+import jungle from "../assets/images/jungle.jpg";
 
-// import { Image, DetailsContainer } from "../styles/styles_Welcome";
 import { BuyLink } from "./BuyLink";
 import {
   Container,
@@ -27,14 +27,16 @@ export const DetailsCard = ({
 }) => {
   return (
     <Container>
-      <Image src={image === undefined ? null : `${image.thumbnail}`} />
+      <Image src={image === undefined ? jungle : `${image.thumbnail}`} />
       <DescriptionContainer>
         <Title>{title === undefined ? null : title}</Title>
-        <Authors>by {authors ? authors.join(", ") : "Not provided"}</Authors>
+        <Authors>
+          by {authors ? authors.join(", ") : "Authors: not provided"}
+        </Authors>
         <p>
           {publisher}, {pages} pages
         </p>
-        <p>{categories ? categories : "Not provided"}</p>
+        <p>{categories ? categories : "Categories: not provided"}</p>
         <Label>Description:</Label>
         <Text>{description}</Text>
         <Label>Published:</Label>

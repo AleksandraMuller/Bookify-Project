@@ -20,56 +20,22 @@ app.use(cors());
 app.use(bodyParser.json());
 
 //FUNCTION authenticateUser
-const authenticateUser = async (req, res, next) => {
-  try {
-    const user = await User.findOne({
-      accessToken: req.header("Authorization")
-    });
-    if (user) {
-      req.user = user;
-      next();
-    } else {
-      res.status(401).json({ loggedIn: false });
-    }
-  } catch (err) {
-    res
-      .status(403)
-      .json({ message: "Access token missing or invalid", errors: err.errors });
-  }
-};
-
-// const checkReviewOwnership = async (req, res, next) => {
-//   const { reviewId } = req.params;
-
-//   Review.findById(reviewId, async (err, foundReview) => {
-//     const user = await User.findById({
-//       _id: req.body._id
+// const authenticateUser = async (req, res, next) => {
+//   try {
+//     const user = await User.findOne({
+//       accessToken: req.header("Authorization")
 //     });
-//     if (err) {
-//       console.log(err);
+//     if (user) {
+//       req.user = user;
+//       next();
 //     } else {
-//       if (foundReview.author === user) {
-//         next();
-//       } else {
-//         req.flash("error", "You dont have the permission to do that");
-//       }
+//       res.status(401).json({ loggedIn: false });
 //     }
-//   });
-
-// const review = await Review.find({
-//   // _id: req.params._id,
-//   authorName: req.body.authorName
-// });
-// const user = await User.find({
-//   // _id: req.params._id,
-//   name: req.body.name
-// });
-// if (review === user) {
-//   console.log("works");
-//   next();
-// } else {
-//   ("not working");
-// }
+//   } catch (err) {
+//     res
+//       .status(403)
+//       .json({ message: "Access token missing or invalid", errors: err.errors });
+//   }
 // };
 
 // Start defining your routes here
@@ -115,10 +81,10 @@ app.post("/sessions", async (req, res) => {
 
 //Autorization for the super secret  message, only available for authenticated users
 
-app.get("/secrets", authenticateUser);
-app.get("/secrets", (req, res) => {
-  res.json({ secret: "this is the secret" });
-});
+// app.get("/secrets", authenticateUser);
+// app.get("/secrets", (req, res) => {
+//   res.json({ secret: "this is the secret" });
+// });
 
 // SHOW COMMENTS
 app.get("/profile", async (req, res) => {
