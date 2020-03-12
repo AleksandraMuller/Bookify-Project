@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import { auth } from "../reducers/auth";
 import { Logout } from "./Logout";
 import { BuyLink } from "./BuyLink";
 import { BookCard } from "./BookCard";
@@ -19,7 +18,7 @@ import {
   DetailsButton
 } from "../styles/styles_Welcome";
 import { BlueButton } from "../styles/styles_reusables";
-import { Button, ButtonContainer } from "../styles/styles_Logout";
+import { ButtonContainer } from "../styles/styles_Logout";
 
 export const Welcome = () => {
   const booksArray = JSON.parse(window.sessionStorage.getItem("booksArray"));

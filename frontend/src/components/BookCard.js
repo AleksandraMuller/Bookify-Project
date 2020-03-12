@@ -2,7 +2,7 @@ import React from "react";
 
 import { Image, DetailsContainer } from "../styles/styles_Welcome";
 
-export const BookCard = ({ image, title, authors, categories }) => {
+export const BookCard = ({ image, title, authors }) => {
   return (
     <>
       <Image src={image === undefined ? null : `${image.thumbnail}`} />

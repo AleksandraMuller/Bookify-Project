@@ -8,6 +8,8 @@ export const Container = styled.div`
   border-bottom: 2px solid #333;
   margin-bottom: 2rem;
   padding-bottom: 1rem;
+  letter-spacing: 1px;
+  font-family: "Libre Franklin", sans-serif;
 `;
 
 export const TopContainer = styled.div`

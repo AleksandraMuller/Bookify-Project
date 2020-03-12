@@ -20,7 +20,7 @@ export const Profile = () => {
   const history = useHistory();
 
   useEffect(() => {
-    fetch(`http://localhost:8080/profile?username=${name}`)
+    fetch(`https://bookify-project.herokuapp.com/profile?username=${name}`)
       .then(res => res.json())
       .then(json => {
         setReviews(json);

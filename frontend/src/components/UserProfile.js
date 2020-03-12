@@ -21,7 +21,7 @@ export const UserProfile = props => {
   const handleDelete = (event, index) => {
     event.preventDefault();
 
-    fetch(`http://localhost:8080/${reviewId}`, {
+    fetch(`https://bookify-project.herokuapp.com/${reviewId}`, {
       method: "DELETE",
       headers: {
         Accept: "application/json",

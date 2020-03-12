@@ -19,7 +19,7 @@ import {
 import womanwithbook from "../assets/images/womanwithbook.jpg";
 import woman from "../assets/images/womanResized.jpg";
 
-const URL = "http://localhost:8080/users";
+const URL = "https://bookify-project.herokuapp.com/users";
 
 export const Register = () => {
   const [name, setName] = useState();

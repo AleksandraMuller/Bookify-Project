@@ -25,7 +25,7 @@ import library from "../assets/images/library.jpg";
 
 import { auth } from "../reducers/auth";
 
-const URL = "http://localhost:8080/sessions";
+const URL = "https://bookify-project.herokuapp.com/sessions";
 
 export const Login = () => {
   const [email, setEmail] = useState();
