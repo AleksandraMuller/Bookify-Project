@@ -6,7 +6,8 @@ const initialState = {
   userId: "",
   accessToken: localStorage.getItem("accessToken"),
   loggedIn: localStorage.getItem("loggedIn"),
-  reviewId: ""
+  reviewId: "",
+  visible: localStorage.getItem("visible")
 };
 
 export const auth = createSlice({
@@ -35,6 +36,10 @@ export const auth = createSlice({
     },
     setReviewId: (state, action) => {
       state.reviewId = action.payload;
+    },
+    setVisible: (state, action) => {
+      state.visible = action.payload;
+      localStorage.setItem("visible", action.payload);
     }
   }
 });

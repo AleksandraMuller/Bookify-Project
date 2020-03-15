@@ -9,6 +9,7 @@ import { Login } from "./components/Login";
 import { Welcome } from "./components/Welcome";
 import { Details } from "./components/Details";
 import { Profile } from "./components/Profile";
+import { Favourites } from "./components/Favourites";
 
 import { auth } from "./reducers/auth";
 
@@ -40,6 +41,9 @@ export const App = () => {
           </Route>
           <Route path="/profile" exact>
             <Profile />
+          </Route>
+          <Route path="/favourites" exact>
+            <Favourites />
           </Route>
         </Switch>
       </BrowserRouter>

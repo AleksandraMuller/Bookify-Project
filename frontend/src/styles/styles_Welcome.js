@@ -1,21 +1,5 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
-  width: 100%;
-  min-height: 100vh;
-  overflow: hidden;
-  background: #eee;
-`;
-
-export const Header = styled.div`
-  width: 100%;
-  height: 4rem;
-
-  background: #cd6133;
-  display: flex;
-  justify-content: space-between;
-`;
-
 export const HeaderName = styled.button`
   align-self: center;
   color: #fff;
@@ -68,20 +52,13 @@ export const Input = styled.input`
   }
 `;
 
-export const CardContainer = styled.div`
-  width: 100%;
-  margin-top: 4rem;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-`;
-
 export const ToBuy = styled.a`
   font-size: 1.5rem;
   z-index: 100;
   grid-row: 1 / span 1;
   grid-column: 3 / span 1;
   text-decoration: none;
+  margin-top: 0.5rem;
   :hover {
     -webkit-animation: pulse 1s ease-in;
     -moz-animation: pulse 1s ease-in;
@@ -97,22 +74,63 @@ export const ToBuy = styled.a`
       opacity: 0;
     }
     25% {
-      -webkit-transform: scale(1.1);
+      -webkit-transform: scale(1.15);
       opacity: 0.1;
     }
     50% {
-      -webkit-transform: scale(1.15);
+      -webkit-transform: scale(1.2);
       opacity: 0.3;
     }
     75% {
-      -webkit-transform: scale(1.2);
+      -webkit-transform: scale(1.3);
       opacity: 0.5;
     }
     100% {
-      -webkit-transform: scale(1.3);
+      -webkit-transform: scale(1.4);
       opacity: 0;
     }
   }
+`;
+
+export const PlusButton = styled.button`
+  font-size: 1.5rem;
+  z-index: 100;
+  grid-row: 1 / span 1;
+  grid-column: 1 / span 1;
+  cursor: pointer;
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  :hover {
+    -webkit-animation: pulse 1s ease-in;
+    -moz-animation: pulse 1s ease-in;
+    animation: pulse 1s ease-in;
+    -webkit-animation-iteration-count: infinite;
+    -moz-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+  }
+
+  @keyframes pulse {
+    0% {
+      -webkit-transform: scale(1);
+      opacity: 0;
+    }
+    25% {
+      -webkit-transform: scale(1.15);
+      opacity: 0.1;
+    }
+    50% {
+      -webkit-transform: scale(1.2);
+      opacity: 0.3;
+    }
+    75% {
+      -webkit-transform: scale(1.3);
+      opacity: 0.5;
+    }
+    100% {
+      -webkit-transform: scale(1.4);
+      opacity: 0;
+    }
 `;
 
 export const Image = styled.img`
@@ -134,6 +152,7 @@ export const DetailsContainer = styled.div`
   text-align: center;
   z-index: 100;
   font-family: "Libre Franklin", sans-serif;
+  overflow: hidden;
 `;
 
 export const OneCard = styled.div`

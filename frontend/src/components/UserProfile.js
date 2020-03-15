@@ -8,6 +8,8 @@ import {
   Paragraph
 } from "../styles/styles_UserProfile";
 
+// https://bookify-project.herokuapp.com/${reviewId}
+
 import { DeleteButton } from "../styles/styles_reusables";
 
 // const URL = "http://localhost:8080/:reviewId";
@@ -21,7 +23,7 @@ export const UserProfile = props => {
   const handleDelete = (event, index) => {
     event.preventDefault();
 
-    fetch(`https://bookify-project.herokuapp.com/${reviewId}`, {
+    fetch(`http://localhost:8080/${reviewId}`, {
       method: "DELETE",
       headers: {
         Accept: "application/json",
@@ -45,7 +47,7 @@ export const UserProfile = props => {
               </Paragraph>
             </div>
             <DeleteButton onClick={index => handleDelete(index)}>
-              Delete ❌
+              Delete <span role="img">❌</span>
             </DeleteButton>
           </TopContainer>
 

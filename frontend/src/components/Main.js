@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  Container,
   Video,
   Middle,
   Navbar,
@@ -10,8 +9,11 @@ import {
   MainRegisterButton,
   MainRegisterButtonText,
   RegisterButton,
-  LoginButton
+  LoginButton,
+  Container
 } from "../styles/styles_Main";
+
+// import { Container } from "../styles/styles_reusables";
 import { useHistory } from "react-router-dom";
 
 import redlawn from "../assets/videos/redlawn.mp4";
@@ -21,7 +23,7 @@ export const Main = () => {
 
   return (
     <Container>
-      <Video autoPlay playsinline muted loop>
+      <Video autoPlay playsInline muted loop>
         <source src={redlawn} type="video/mp4"></source>
         "Your browser is not supported!"
       </Video>

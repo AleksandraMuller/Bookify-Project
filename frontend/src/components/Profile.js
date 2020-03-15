@@ -6,10 +6,15 @@ import moment from "moment";
 import { UserProfile } from "./UserProfile";
 import { Logout } from "./Logout";
 
-import { Container, Header } from "../styles/styles_Welcome";
-import { ButtonContainer } from "../styles/styles_Logout";
-import { UserContainer, MainTitle } from "../styles/styles_Profile";
-import { BlueButton } from "../styles/styles_reusables";
+// import { ButtonContainer } from "../styles/styles_Logout";
+import { UserContainer } from "../styles/styles_Profile";
+import {
+  Container,
+  BlueButton,
+  Header,
+  ButtonContainer,
+  MainTitle
+} from "../styles/styles_reusables";
 
 // const URL = "http://localhost:8080/:reviewId";
 
@@ -20,7 +25,7 @@ export const Profile = () => {
   const history = useHistory();
 
   useEffect(() => {
-    fetch(`https://bookify-project.herokuapp.com/profile?username=${name}`)
+    fetch(`http://localhost:8080/profile?username=${name}`)
       .then(res => res.json())
       .then(json => {
         setReviews(json);
@@ -34,6 +39,9 @@ export const Profile = () => {
           <ButtonContainer>
             <Logout></Logout>
             <BlueButton onClick={() => history.goBack()}>Back</BlueButton>
+            <BlueButton onClick={() => history.push("/favourites")}>
+              To Favourites
+            </BlueButton>
           </ButtonContainer>
           <UserContainer>You are logged in as: {name}</UserContainer>
         </Header>

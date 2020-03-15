@@ -26,7 +26,3 @@ export const Button = styled.button`
     margin-top: 0;
   }
 `;
-
-export const ButtonContainer = styled.div`
-  align-self: center;
-`;

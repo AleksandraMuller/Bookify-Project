@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  Container,
   RightContainer,
   LeftContainer,
   FlexContainer,
@@ -17,15 +16,16 @@ import {
   TransparentButton,
   Label,
   Input,
-  OrangeButton,
   Error
 } from "../styles/styles_Register";
 
-import library from "../assets/images/library.jpg";
+import { OrangeButton, Container } from "../styles/styles_reusables";
+
+import library from "../assets/images/library2.jpg";
 
 import { auth } from "../reducers/auth";
 
-const URL = "https://bookify-project.herokuapp.com/sessions";
+const URL = "http://localhost:8080/sessions";
 
 export const Login = () => {
   const [email, setEmail] = useState();

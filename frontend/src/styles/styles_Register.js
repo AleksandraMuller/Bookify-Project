@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
-  background: #eee;
-`;
+// export const Container = styled.div`
+//   width: 100%;
+//   height: 100vh;
+//   overflow: hidden;
+//   background: #eee;
+// `;
 
 export const FlexContainer = styled.div`
   background: #fff;
@@ -111,28 +111,6 @@ export const TransparentButton = styled.button`
   :hover {
     color: #000;
     background: #fff;
-    transform: translate(0, -3px);
-    -webkit-transition: all 0.2s ease-in-out;
-    transition: all 0.2s ease-in-out;
-    box-shadow: 0 8px 6px -6px black;
-  }
-`;
-
-export const OrangeButton = styled.button`
-  color: #fff;
-  background: #d35400;
-  border: 4px solid #d35400;
-  grid-column: 3 / span 1;
-  grid-row: 4 / span 1;
-  z-index: 100;
-  text-align: center;
-  font-family: "Libre Franklin", sans-serif;
-  letter-spacing: 2px;
-  cursor: pointer;
-  :hover {
-    color: #d35400;
-    background: transparent;
-    border: 4px solid #d35400;
     transform: translate(0, -3px);
     -webkit-transition: all 0.2s ease-in-out;
     transition: all 0.2s ease-in-out;

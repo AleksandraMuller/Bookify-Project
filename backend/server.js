@@ -6,6 +6,7 @@ import bcrypt from "bcrypt-nodejs";
 
 import { User } from "./models/User";
 import { Review } from "./models/Review";
+import { Like } from "./models/Like";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/bookify";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -114,6 +115,18 @@ app.get("/review", async (req, res) => {
   }).sort({ createdAt: "desc" });
 });
 
+app.get("/like", async (req, res) => {
+  const username = req.query.username;
+  Like.find({ username: username }, (err, reviews) => {
+    if (err) {
+      console.log(err);
+      res.status(404).json({ error: "Not found" });
+    } else {
+      res.json(reviews);
+    }
+  }).sort({ createdAt: "desc" });
+});
+
 // ADD BOOK + the COMMENT
 app.post("/review", async (req, res) => {
   try {
@@ -149,6 +162,41 @@ app.delete("/:reviewId", async (req, res) => {
     });
   }
 });
+
+//ADD TO FAVOURITES
+app.post("/like", async (req, res) => {
+  try {
+    const like = new Like({
+      id: req.body.id,
+      title: req.body.title,
+      authors: req.body.authors,
+      username: req.body.username,
+      image: req.body.image,
+      buy: req.body.buy
+    });
+    await like.save();
+    res.json(like);
+  } catch (err) {
+    res
+      .status(400)
+      .json({ errors: err.errors, comment: "Cannot add new like" });
+  }
+});
+
+//DELETE From FAVOURITES
+app.delete("/fav/:favId", async (req, res) => {
+  const { favId } = req.params;
+
+  await Favourite.findByIdAndDelete(favId, (err, favs) => {
+    if (err) {
+      console.log(err);
+      res.status(404).json({ error: "Not deleted" });
+    } else {
+      res.json(favs);
+    }
+  });
+});
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);

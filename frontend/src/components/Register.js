@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import {
-  Container,
   Image,
   FlexContainer,
   LeftContainer,
   RightContainer,
   LeftHeader,
   TransparentButton,
-  OrangeButton,
   RightHeader,
   Label,
   Input,
@@ -16,10 +14,11 @@ import {
   Error
 } from "../styles/styles_Register";
 
-import womanwithbook from "../assets/images/womanwithbook.jpg";
-import woman from "../assets/images/womanResized.jpg";
+import { Container, OrangeButton } from "../styles/styles_reusables";
 
-const URL = "https://bookify-project.herokuapp.com/users";
+import woman from "../assets/images/womaninlibrary.jpg";
+
+const URL = "http://localhost:8080/users";
 
 export const Register = () => {
   const [name, setName] = useState();
@@ -52,7 +51,7 @@ export const Register = () => {
     <Container>
       <FlexContainer>
         <LeftContainer>
-          <Image src={womanwithbook} />
+          <Image src={woman} />
           <LeftHeader>Already have an account?</LeftHeader>
           <TransparentButton onClick={() => history.push("/login")}>
             SIGN IN

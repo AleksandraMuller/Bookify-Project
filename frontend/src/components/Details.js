@@ -10,15 +10,20 @@ import {
   ButtonReview,
   Form
 } from "../styles/styles_Details";
-import { Container, Header, HeaderName } from "../styles/styles_Welcome";
-import { ButtonContainer } from "../styles/styles_Logout";
-import { BlueButton } from "../styles/styles_reusables";
+// import { Header, HeaderName } from "../styles/styles_Welcome";
+// import { ButtonContainer } from "../styles/styles_Logout";
+import {
+  Container,
+  BlueButton,
+  Header,
+  ButtonContainer
+} from "../styles/styles_reusables";
 
 import { Review } from "./Review";
 import { Logout } from "./Logout";
 import { DetailsCard } from "./DetailsCard";
 
-const URL = "https://bookify-project.herokuapp.com/review";
+const URL = "http://localhost:8080/review";
 
 export const Details = () => {
   const [details, setDetails] = useState([]);
@@ -74,7 +79,7 @@ export const Details = () => {
         id: bookId,
         description: details.volumeInfo.description,
         title: details.volumeInfo.title,
-        authors: details.volumeInfo.authors,
+        authors: details.volumeInfo.authors.join(", "),
         authorName: name
       })
     })

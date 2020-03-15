@@ -1,6 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
+// `https://bookify-project.herokuapp.com/${reviewId}`
+
 // const URL = "http://localhost:8080/:reviewId";
 import {
   Container,
@@ -19,7 +21,7 @@ export const Review = props => {
   const handleDelete = (event, index) => {
     event.preventDefault();
 
-    fetch(`https://bookify-project.herokuapp.com/${reviewId}`, {
+    fetch(`http://localhost:8080/${reviewId}`, {
       method: "DELETE",
       headers: {
         Accept: "application/json",
@@ -40,7 +42,9 @@ export const Review = props => {
           <Span>{name}</Span> said {time}
         </HeaderParagraph>
         {isCurrentUser && (
-          <DeleteButton onClick={handleDelete}>Delete ❌</DeleteButton>
+          <DeleteButton onClick={handleDelete}>
+            Delete <span role="img">❌</span>
+          </DeleteButton>
         )}
       </Header>
       <p>{review}</p>

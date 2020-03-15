@@ -2,23 +2,26 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 
+import { Heart } from "./Heart";
 import { Logout } from "./Logout";
 import { BuyLink } from "./BuyLink";
 import { BookCard } from "./BookCard";
 
 import {
-  Container,
-  Header,
   HeaderName,
   HeaderForm,
   Form,
   Input,
   OneCard,
-  CardContainer,
   DetailsButton
 } from "../styles/styles_Welcome";
-import { BlueButton } from "../styles/styles_reusables";
-import { ButtonContainer } from "../styles/styles_Logout";
+import {
+  BlueButton,
+  Container,
+  Header,
+  ButtonContainer,
+  CardContainer
+} from "../styles/styles_reusables";
 
 export const Welcome = () => {
   const booksArray = JSON.parse(window.sessionStorage.getItem("booksArray"));
@@ -38,7 +41,6 @@ export const Welcome = () => {
 
   const handleSubmit = event => {
     event.preventDefault();
-
     fetch(
       `https://www.googleapis.com/books/v1/volumes?maxResults=40&q=${searchText}`
     )
@@ -56,7 +58,6 @@ export const Welcome = () => {
   const removeLocalHistory = () => {
     setBooks([]);
     window.sessionStorage.removeItem("booksArray");
-    //IMPROVE!!!!
   };
 
   return (
@@ -68,11 +69,9 @@ export const Welcome = () => {
               <Logout></Logout>
               <BlueButton onClick={removeLocalHistory}>Clear search</BlueButton>
             </ButtonContainer>
-            {/* <HeaderName> */}
             <HeaderName onClick={() => history.push("/profile")}>
               Welcome {name}! <ion-icon name="person-circle-outline"></ion-icon>
             </HeaderName>
-            {/* </HeaderName> */}
           </Header>{" "}
           <Form onSubmit={handleSubmit}>
             <HeaderForm>Start exploring now:</HeaderForm>
@@ -98,6 +97,18 @@ export const Welcome = () => {
           books.map(book => {
             return (
               <OneCard key={book.id}>
+                <Heart
+                  bookId={book.id}
+                  title={book.volumeInfo.title}
+                  authors={book.volumeInfo.authors}
+                  image={
+                    book.volumeInfo.imageLinks === undefined
+                      ? null
+                      : `${book.volumeInfo.imageLinks.thumbnail}`
+                  }
+                  favId={book.id}
+                  buy={book.saleInfo.buyLink}
+                ></Heart>
                 <BuyLink sales={book.saleInfo}></BuyLink>
                 <BookCard
                   image={book.volumeInfo.imageLinks}

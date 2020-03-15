@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
-  background: #eee;
-`;
+// export const Container = styled.div`
+//   width: 100%;
+//   height: 100vh;
+//   overflow: hidden;
+//   background: #eee;
+// `;
 
 export const FlexContainer = styled.div`
   background: #fff;

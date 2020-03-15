@@ -6,7 +6,6 @@ export const Container = styled.div`
   height: 100vh;
   overflow: hidden;
   background: #eee;
-  // opacity: 0.7;
 `;
 
 export const Video = styled.video`
