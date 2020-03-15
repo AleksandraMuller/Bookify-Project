@@ -1,16 +1,40 @@
 import React from "react";
 import jungle from "../assets/images/jungle.jpg";
 import { ToBuy } from "../styles/styles_Welcome";
+import {
+  Image,
+  TextContainer,
+  DeleteButtonFav
+} from "../styles/styles_Favourites";
+// import {  } from "styles/styles_reusables";
 
-export const FavouriteCard = ({ image, title, authors, cart }) => {
+export const FavouriteCard = ({ image, title, authors, cart, favId }) => {
+  const deleteFavourite = event => {
+    event.preventDefault();
+
+    fetch(`http://localhost:8080/fav/${favId}`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      }
+    })
+      .then(res => res.json())
+      .then(() => {
+        window.location.reload();
+      });
+  };
   return (
     <>
-      <img src={image} />
+      <Image src={image} />
       <ToBuy href={cart}>🛒</ToBuy>
-      <div>
+      <TextContainer>
         <h3>{title}</h3>
         <p>by {authors ? authors.join(", ") : "Not provided"}</p>
-      </div>
+      </TextContainer>
+      <DeleteButtonFav onClick={deleteFavourite}>
+        Delete <span role="img">❌</span>
+      </DeleteButtonFav>
     </>
   );
 };

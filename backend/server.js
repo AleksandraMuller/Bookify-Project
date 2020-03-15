@@ -187,7 +187,7 @@ app.post("/like", async (req, res) => {
 app.delete("/fav/:favId", async (req, res) => {
   const { favId } = req.params;
 
-  await Favourite.findByIdAndDelete(favId, (err, favs) => {
+  await Like.findByIdAndDelete(favId, (err, favs) => {
     if (err) {
       console.log(err);
       res.status(404).json({ error: "Not deleted" });

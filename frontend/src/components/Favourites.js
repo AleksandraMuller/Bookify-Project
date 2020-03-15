@@ -56,6 +56,7 @@ export const Favourites = () => {
                 title={favourite.title}
                 authors={favourite.authors}
                 cart={favourite.buy}
+                favId={favourite._id}
               ></FavouriteCard>
             </OneFavourite>
           );

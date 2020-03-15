@@ -156,11 +156,10 @@ export const DetailsContainer = styled.div`
 `;
 
 export const OneCard = styled.div`
-  width: 100%;
+  width: 70%;
   height: 33rem;
   background: #fff;
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
+  margin: 0 auto;
   margin-bottom: 2rem;
   display: grid;
   grid-template-columns: 15% 70% 15%;
