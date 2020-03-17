@@ -47,7 +47,7 @@ export const DetailsCard = ({
           {price === undefined ? "Price is not available" : `${price.amount}`}{" "}
           {price === undefined ? null : `${price.currencyCode}`}
         </p>
-        <BuyLink sales={cart}></BuyLink>
+        {cart.buyLink && <BuyLink sales={cart}></BuyLink>}
       </PriceContainer>
     </Container>
   );

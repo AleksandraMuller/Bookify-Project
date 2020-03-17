@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import { Heart } from "./Heart";
+import { AddFavourite } from "./AddFavourite";
 import { Logout } from "./Logout";
 import { BuyLink } from "./BuyLink";
 import { BookCard } from "./BookCard";
@@ -97,7 +97,7 @@ export const Welcome = () => {
           books.map(book => {
             return (
               <OneCard key={book.id}>
-                <Heart
+                <AddFavourite
                   bookId={book.id}
                   title={book.volumeInfo.title}
                   authors={book.volumeInfo.authors}
@@ -108,8 +108,12 @@ export const Welcome = () => {
                   }
                   favId={book.id}
                   buy={book.saleInfo.buyLink}
-                ></Heart>
-                <BuyLink sales={book.saleInfo}></BuyLink>
+                ></AddFavourite>
+
+                {book.saleInfo.buyLink && (
+                  <BuyLink sales={book.saleInfo}></BuyLink>
+                )}
+
                 <BookCard
                   image={book.volumeInfo.imageLinks}
                   title={book.volumeInfo.title}

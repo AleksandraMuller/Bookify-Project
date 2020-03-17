@@ -8,6 +8,7 @@ import { Register } from "./components/Register";
 import { Login } from "./components/Login";
 import { Welcome } from "./components/Welcome";
 import { Details } from "./components/Details";
+import { Review } from "./components/Review";
 import { Profile } from "./components/Profile";
 import { Favourites } from "./components/Favourites";
 
@@ -38,6 +39,9 @@ export const App = () => {
           </Route>
           <Route path="/details/:bookId" exact>
             <Details />
+          </Route>
+          <Route path="/review" exact>
+            <Review />
           </Route>
           <Route path="/profile" exact>
             <Profile />

@@ -1,65 +1,57 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import moment from "moment";
 
-import { UserProfile } from "./UserProfile";
 import { Logout } from "./Logout";
 
-// import { ButtonContainer } from "../styles/styles_Logout";
-import { UserContainer } from "../styles/styles_Profile";
 import {
   Container,
-  BlueButton,
   Header,
+  MainTitle,
   ButtonContainer,
-  MainTitle
+  BlueButton
 } from "../styles/styles_reusables";
+import { FlexContainer, Video, Button, Text } from "styles/styles_Profile";
 
-// const URL = "http://localhost:8080/:reviewId";
+// import onlybooks from "../assets/images/onlybooks.jpg";
+// import house from "../assets/images/house.jpg";
+
+import boat from "../assets/videos/boat.mp4";
+import book from "../assets/videos/book.mp4";
+// import mountains from "../assets/videos/mountains.mp4";
 
 export const Profile = () => {
-  const [reviews, setReviews] = useState([]);
-  const name = useSelector(store => store.auth.name);
-  const token = useSelector(store => store.auth.accessToken);
   const history = useHistory();
-
-  useEffect(() => {
-    fetch(`http://localhost:8080/profile?username=${name}`)
-      .then(res => res.json())
-      .then(json => {
-        setReviews(json);
-      });
-  }, []);
+  const name = useSelector(store => store.auth.name);
 
   return (
     <Container>
-      {token && (
-        <Header>
-          <ButtonContainer>
-            <Logout></Logout>
-            <BlueButton onClick={() => history.goBack()}>Back</BlueButton>
-            <BlueButton onClick={() => history.push("/favourites")}>
-              To Favourites
-            </BlueButton>
-          </ButtonContainer>
-          <UserContainer>You are logged in as: {name}</UserContainer>
-        </Header>
-      )}
-      <MainTitle>Here is the list of all your reviews 👇</MainTitle>
-      {reviews.map(review => {
-        return (
-          <UserProfile
-            reviewId={review._id}
-            author={review.authorName}
-            authors={review.authors}
-            review={review.review}
-            title={review.title}
-            bookId={review._id}
-            time={moment(review.createdAt).fromNow()}
-          ></UserProfile>
-        );
-      })}
+      <Header>
+        <ButtonContainer>
+          <Logout></Logout>
+          <BlueButton onClick={() => history.goBack()}>Back</BlueButton>
+        </ButtonContainer>
+      </Header>
+      <MainTitle>
+        Welcome, {name} <span role="img" aria-labelledby="persons face"></span>
+        🧑
+      </MainTitle>
+      <FlexContainer>
+        <Button onClick={() => history.push("/review")}>
+          <Video autoPlay playsInline muted loop>
+            <source src={book} type="video/mp4"></source>
+            "Your browser is not supported!"
+          </Video>
+          <Text>Check your reviews</Text>
+        </Button>
+        <Button onClick={() => history.push("/favourites")}>
+          <Video autoPlay playsInline muted loop>
+            <source src={boat} type="video/mp4"></source>
+            "Your browser is not supported!"
+          </Video>
+          <Text>Discover your favourites</Text>
+        </Button>
+      </FlexContainer>
     </Container>
   );
 };

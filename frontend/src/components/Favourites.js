@@ -12,8 +12,6 @@ import {
 } from "../styles/styles_reusables";
 import { Logout } from "./Logout";
 import { FavouriteCard } from "./FavouriteCard";
-import { BuyLink } from "./BuyLink";
-
 import { OneFavourite } from "../styles/styles_Favourites";
 
 export const Favourites = () => {
@@ -29,7 +27,7 @@ export const Favourites = () => {
         setFavourites(json);
         console.log(json);
       });
-  }, []);
+  }, [name]);
   return (
     <Container>
       <Header>

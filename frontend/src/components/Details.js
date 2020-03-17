@@ -10,8 +10,7 @@ import {
   ButtonReview,
   Form
 } from "../styles/styles_Details";
-// import { Header, HeaderName } from "../styles/styles_Welcome";
-// import { ButtonContainer } from "../styles/styles_Logout";
+
 import {
   Container,
   BlueButton,
@@ -19,7 +18,7 @@ import {
   ButtonContainer
 } from "../styles/styles_reusables";
 
-import { Review } from "./Review";
+import { DetailsReview } from "./DetailsReview";
 import { Logout } from "./Logout";
 import { DetailsCard } from "./DetailsCard";
 
@@ -108,7 +107,6 @@ export const Details = () => {
                 Back
               </BlueButton>
             </ButtonContainer>
-            {/* <HeaderName>You are logged in as {name}! </HeaderName> */}
             <ButtonProfile onClick={() => history.push("/profile")}>
               {name}, go to your profile
             </ButtonProfile>
@@ -125,7 +123,12 @@ export const Details = () => {
             publisher={details.volumeInfo.publisher}
             pages={details.volumeInfo.pageCount}
           ></DetailsCard>
-          <HeaderReview>Leave your review here 👇</HeaderReview>
+          <HeaderReview>
+            Leave your review here{" "}
+            <span role="img" aria-labelledby="look down hand">
+              👇
+            </span>
+          </HeaderReview>
           <Form onSubmit={addReview}>
             <InputReview
               placeholder="Add a review.."
@@ -133,18 +136,23 @@ export const Details = () => {
               value={userReview}
               onChange={e => setUserReview(e.target.value)}
             ></InputReview>
-            <ButtonReview onClick={addReview}>Add review 😊</ButtonReview>
+            <ButtonReview onClick={addReview}>
+              Add review{" "}
+              <span role="img" aria-labelledby="smiley">
+                😊
+              </span>
+            </ButtonReview>
           </Form>
           <>
             {reviews.map(review => {
               return (
-                <Review
+                <DetailsReview
                   id={review._id}
                   reviewId={review._id}
                   name={review.authorName}
                   review={review.review}
                   time={moment(review.createdAt).fromNow()}
-                ></Review>
+                ></DetailsReview>
               );
             })}
           </>

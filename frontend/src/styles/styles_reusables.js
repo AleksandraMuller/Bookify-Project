@@ -88,10 +88,13 @@ export const ButtonContainer = styled.div`
 
 export const MainTitle = styled.h2`
   color: #333;
-  font-size: 1.5rem;
+  font-size: 1rem;
   text-align: center;
   font-family: "Libre Franklin", sans-serif;
   letter-spacing: 2px;
+  @media (min-width: 600px) {
+    font-size: 1.5rem;
+  }
   @media (min-width: 900px) {
     font-size: 2.5rem;
   }

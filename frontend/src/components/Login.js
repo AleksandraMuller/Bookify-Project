@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   RightContainer,
   LeftContainer,
@@ -33,8 +33,6 @@ export const Login = () => {
   const [errorText, setErrorText] = useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
-
-  const token = useSelector(store => store.auth.accessToken);
 
   const myStorage = window.localStorage;
   const mySessions = window.sessionStorage;

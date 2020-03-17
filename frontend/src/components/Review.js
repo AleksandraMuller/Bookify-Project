@@ -1,53 +1,69 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import moment from "moment";
 
-// `https://bookify-project.herokuapp.com/${reviewId}`
+import { ReviewCard } from "./ReviewCard";
+import { Logout } from "./Logout";
 
-// const URL = "http://localhost:8080/:reviewId";
+import { UserContainer } from "../styles/styles_Review";
 import {
   Container,
+  BlueButton,
   Header,
-  HeaderParagraph,
-  Span
-} from "../styles/styles_Review";
-import { DeleteButton } from "../styles/styles_reusables";
+  ButtonContainer,
+  MainTitle
+} from "../styles/styles_reusables";
 
-export const Review = props => {
-  const { id, review, name, time, reviewId, image } = props;
-  const currentUser = useSelector(state => state.auth.name);
+// const URL = "http://localhost:8080/:reviewId";
 
-  const isCurrentUser = name === currentUser;
+export const Review = () => {
+  const [reviews, setReviews] = useState([]);
+  const name = useSelector(store => store.auth.name);
+  const token = useSelector(store => store.auth.accessToken);
+  const history = useHistory();
 
-  const handleDelete = (event, index) => {
-    event.preventDefault();
-
-    fetch(`http://localhost:8080/${reviewId}`, {
-      method: "DELETE",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      }
-    })
+  useEffect(() => {
+    fetch(`http://localhost:8080/profile?username=${name}`)
       .then(res => res.json())
       .then(json => {
-        window.location.reload();
+        setReviews(json);
       });
-  };
+  }, [name]);
 
   return (
-    <Container key={id}>
-      {image}
-      <Header>
-        <HeaderParagraph>
-          <Span>{name}</Span> said {time}
-        </HeaderParagraph>
-        {isCurrentUser && (
-          <DeleteButton onClick={handleDelete}>
-            Delete <span role="img">❌</span>
-          </DeleteButton>
-        )}
-      </Header>
-      <p>{review}</p>
+    <Container>
+      {token && (
+        <Header>
+          <ButtonContainer>
+            <Logout></Logout>
+            <BlueButton onClick={() => history.goBack()}>Back</BlueButton>
+            <BlueButton onClick={() => history.push("/favourites")}>
+              To Favourites
+            </BlueButton>
+          </ButtonContainer>
+          <UserContainer>You are logged in as: {name}</UserContainer>
+        </Header>
+      )}
+      <MainTitle>
+        Here is the list of all your reviews{" "}
+        <span role="img" aria-labelledby="hand pointing down">
+          👇
+        </span>
+      </MainTitle>
+      {reviews.map(review => {
+        return (
+          <ReviewCard
+            reviewId={review._id}
+            author={review.authorName}
+            authors={review.authors}
+            review={review.review}
+            title={review.title}
+            bookId={review._id}
+            time={moment(review.createdAt).fromNow()}
+          ></ReviewCard>
+        );
+      })}
     </Container>
   );
 };

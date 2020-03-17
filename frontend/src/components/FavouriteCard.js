@@ -27,13 +27,22 @@ export const FavouriteCard = ({ image, title, authors, cart, favId }) => {
   return (
     <>
       <Image src={image} />
-      <ToBuy href={cart}>🛒</ToBuy>
+      {cart && (
+        <ToBuy href={cart}>
+          <span role="img" aria-labelledby="shopping cart">
+            🛒
+          </span>
+        </ToBuy>
+      )}
       <TextContainer>
         <h3>{title}</h3>
         <p>by {authors ? authors.join(", ") : "Not provided"}</p>
       </TextContainer>
       <DeleteButtonFav onClick={deleteFavourite}>
-        Delete <span role="img">❌</span>
+        Delete{" "}
+        <span role="img" aria-labelledby="delete image">
+          ❌
+        </span>
       </DeleteButtonFav>
     </>
   );
