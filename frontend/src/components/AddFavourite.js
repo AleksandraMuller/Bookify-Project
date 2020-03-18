@@ -4,12 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { PlusButton } from "../styles/styles_Welcome";
 
-const URL = "https://bookify-project.herokuapp.coms/like";
+const URL = "https://bookify-project.herokuapp.com/like";
 
 export const AddFavourite = ({ title, authors, image, favId, buy }) => {
   const name = useSelector(store => store.auth.name);
-  // const visible = useSelector(store => store.auth.visible);
-  // console.log(visible);
 
   const addFavourite = event => {
     event.preventDefault();
