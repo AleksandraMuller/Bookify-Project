@@ -6,13 +6,12 @@ import {
   TextContainer,
   DeleteButtonFav
 } from "../styles/styles_Favourites";
-// import {  } from "styles/styles_reusables";
 
 export const FavouriteCard = ({ image, title, authors, cart, favId }) => {
   const deleteFavourite = event => {
     event.preventDefault();
 
-    fetch(`http://localhost:8080/fav/${favId}`, {
+    fetch(`https://bookify-project.herokuapp.com/fav/${favId}`, {
       method: "DELETE",
       headers: {
         Accept: "application/json",

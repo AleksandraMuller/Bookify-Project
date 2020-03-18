@@ -13,7 +13,6 @@ import {
   Container
 } from "../styles/styles_Main";
 
-// import { Container } from "../styles/styles_reusables";
 import { useHistory } from "react-router-dom";
 
 import redlawn from "../assets/videos/redlawn.mp4";
@@ -40,7 +39,6 @@ export const Main = () => {
           <Span>― Anna Quindlen, How Reading Changed My Life</Span>
         </HeaderQuote>
         <HeaderInvite>Join our book community!</HeaderInvite>
-        {/* <HeaderInvite>Be part of the JOURNEY</HeaderInvite> */}
         <MainRegisterButton onClick={() => history.push("/register")}>
           <MainRegisterButtonText>Register</MainRegisterButtonText>
         </MainRegisterButton>

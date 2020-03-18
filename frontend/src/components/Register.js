@@ -18,7 +18,7 @@ import { Container, OrangeButton } from "../styles/styles_reusables";
 
 import woman from "../assets/images/womaninlibrary.jpg";
 
-const URL = "http://localhost:8080/users";
+const URL = "https://bookify-project.herokuapp.com/users";
 
 export const Register = () => {
   const [name, setName] = useState();

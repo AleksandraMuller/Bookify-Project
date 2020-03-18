@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { PlusButton } from "../styles/styles_Welcome";
 
-const URL = "http://localhost:8080/like";
+const URL = "https://bookify-project.herokuapp.coms/like";
 
 export const AddFavourite = ({ title, authors, image, favId, buy }) => {
   const name = useSelector(store => store.auth.name);

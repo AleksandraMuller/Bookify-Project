@@ -22,7 +22,7 @@ import { DetailsReview } from "./DetailsReview";
 import { Logout } from "./Logout";
 import { DetailsCard } from "./DetailsCard";
 
-const URL = "http://localhost:8080/review";
+const URL = "https://bookify-project.herokuapp.com/review";
 
 export const Details = () => {
   const [details, setDetails] = useState([]);

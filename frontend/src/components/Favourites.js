@@ -21,7 +21,7 @@ export const Favourites = () => {
   const name = useSelector(store => store.auth.name);
 
   useEffect(() => {
-    fetch(`http://localhost:8080/like?username=${name}`)
+    fetch(`https://bookify-project.herokuapp.com/like?username=${name}`)
       .then(res => res.json())
       .then(json => {
         setFavourites(json);

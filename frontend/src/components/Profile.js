@@ -13,12 +13,8 @@ import {
 } from "../styles/styles_reusables";
 import { FlexContainer, Video, Button, Text } from "styles/styles_Profile";
 
-// import onlybooks from "../assets/images/onlybooks.jpg";
-// import house from "../assets/images/house.jpg";
-
 import boat from "../assets/videos/boat.mp4";
 import book from "../assets/videos/book.mp4";
-// import mountains from "../assets/videos/mountains.mp4";
 
 export const Profile = () => {
   const history = useHistory();
