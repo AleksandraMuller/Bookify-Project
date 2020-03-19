@@ -22,7 +22,11 @@ import { DetailsReview } from "./DetailsReview";
 import { Logout } from "./Logout";
 import { DetailsCard } from "./DetailsCard";
 
+import { fetchData } from "../services/books";
+import { fetchReviews, addReview } from "../services/reviews";
+
 const URL = "https://bookify-project.herokuapp.com/review";
+// const URL = "http://localhost:8080/review";
 
 export const Details = () => {
   const [details, setDetails] = useState([]);
@@ -34,34 +38,15 @@ export const Details = () => {
   const history = useHistory();
 
   const { bookId } = useParams();
-  const token = useSelector(store => store.auth.accessToken);
+  const loggedIn = useSelector(store => store.auth.loggedIn);
   const name = useSelector(store => store.auth.name);
 
-  const fetchData = async () => {
-    const resp = await fetch(
-      `https://www.googleapis.com/books/v1/volumes/${bookId}`
-    );
-    const json = await resp.json();
-    if (json.status_code === 34) {
-      setError(true);
-    } else {
-      setDetails({ ...json });
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
-    fetchData();
+    fetchData(bookId, setError, setDetails, setLoading);
   }, []);
 
   useEffect(() => {
-    // setLoading(true);
-    fetch(`${URL}?bookId=${bookId}`)
-      .then(res => res.json())
-      .then(json => {
-        setReviews(json);
-      });
-    // setLoading(false);
+    fetchReviews(bookId, setReviews);
   }, [bookId]);
 
   const addReview = event => {
@@ -94,11 +79,11 @@ export const Details = () => {
 
   return (
     <Container className="details-section">
-      {loading && !error && token && (
+      {loading && !error && loggedIn && (
         <h2 className="loading">Loading details...</h2>
       )}
-      {error && token && <h2 className="loading">Book not found</h2>}
-      {!error && !loading && token && (
+      {error && loggedIn && <h2 className="loading">Book not found</h2>}
+      {!error && !loading && loggedIn && (
         <div>
           <Header>
             <ButtonContainer>
@@ -158,7 +143,7 @@ export const Details = () => {
           </>
         </div>
       )}
-      {!token && (
+      {!loggedIn && (
         <div>
           ERROR! NO access permitted!{" "}
           <button onClick={() => history.push("/")}>Back to Main Page</button>

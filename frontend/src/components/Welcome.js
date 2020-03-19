@@ -7,6 +7,10 @@ import { Logout } from "./Logout";
 import { BuyLink } from "./BuyLink";
 import { BookCard } from "./BookCard";
 
+import { ErrorButton, ErrorContainer } from "../styles/styles_error";
+
+// import { handleSubmit } from "../services/books";
+
 import {
   HeaderName,
   HeaderForm,
@@ -32,12 +36,8 @@ export const Welcome = () => {
 
   const history = useHistory();
 
-  const token = useSelector(store => store.auth.accessToken);
-
   const name = useSelector(store => store.auth.name);
   const loggedIn = useSelector(store => store.auth.loggedIn);
-
-  console.log(loggedIn);
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -62,7 +62,7 @@ export const Welcome = () => {
 
   return (
     <Container>
-      {loggedIn && token && (
+      {loggedIn && (
         <div>
           <Header>
             <ButtonContainer>
@@ -76,7 +76,7 @@ export const Welcome = () => {
           <Form onSubmit={handleSubmit}>
             <HeaderForm>Start exploring now:</HeaderForm>
             <Input
-              placeholder="Search by title"
+              placeholder="Search by title or author"
               value={searchText}
               onChange={event => setSearchText(event.target.value)}
             ></Input>
@@ -85,14 +85,16 @@ export const Welcome = () => {
         </div>
       )}
 
-      {!token && (
-        <div>
-          ERROR! NO access permitted!{" "}
-          <button onClick={() => history.push("/")}>Back to Main Page</button>
-        </div>
+      {!loggedIn && (
+        <ErrorContainer>
+          ERROR! No access permitted!{" "}
+          <ErrorButton onClick={() => history.push("/")}>
+            Back to Main Page
+          </ErrorButton>
+        </ErrorContainer>
       )}
       <CardContainer>
-        {token &&
+        {loggedIn &&
           books !== null &&
           books.map(book => {
             return (

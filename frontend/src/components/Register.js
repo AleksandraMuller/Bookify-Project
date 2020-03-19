@@ -14,11 +14,11 @@ import {
   Error
 } from "../styles/styles_Register";
 
+import { handleRegister } from "../services/auth";
+
 import { Container, OrangeButton } from "../styles/styles_reusables";
 
 import woman from "../assets/images/womaninlibrary.jpg";
-
-const URL = "https://bookify-project.herokuapp.com/users";
 
 export const Register = () => {
   const [name, setName] = useState();
@@ -26,26 +26,6 @@ export const Register = () => {
   const [password, setPassword] = useState();
   const [errorText, setErrorText] = useState(false);
   const history = useHistory();
-
-  const handleRegister = event => {
-    event.preventDefault();
-    fetch(URL, {
-      method: "POST",
-      body: JSON.stringify({ name, email, password }),
-      headers: { "Content-Type": "application/json" }
-    })
-      .then(res => {
-        res.json();
-        if (res.status === 201) {
-          history.push("/login");
-        } else {
-          setErrorText(true);
-          throw new Error("Unable to sign Up, please try again");
-        }
-      })
-      .then(json => console.log(json))
-      .catch(err => console.log("error:", err));
-  };
 
   return (
     <Container>
@@ -81,7 +61,11 @@ export const Register = () => {
               onChange={event => setPassword(event.target.value)}
             ></Input>
           </InputContainer>
-          <OrangeButton onClick={event => handleRegister(event)}>
+          <OrangeButton
+            onClick={() =>
+              handleRegister(name, email, password, setErrorText, history)
+            }
+          >
             REGISTER
           </OrangeButton>
           {errorText && <Error>Could not add user. Please try again!</Error>}

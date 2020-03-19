@@ -20,26 +20,7 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-//FUNCTION authenticateUser
-// const authenticateUser = async (req, res, next) => {
-//   try {
-//     const user = await User.findOne({
-//       accessToken: req.header("Authorization")
-//     });
-//     if (user) {
-//       req.user = user;
-//       next();
-//     } else {
-//       res.status(401).json({ loggedIn: false });
-//     }
-//   } catch (err) {
-//     res
-//       .status(403)
-//       .json({ message: "Access token missing or invalid", errors: err.errors });
-//   }
-// };
-
-// Start defining your routes here
+//ROUTES
 app.get("/", (req, res) => {
   res.send("Bookify Project");
 });
@@ -78,16 +59,9 @@ app.post("/sessions", async (req, res) => {
   }
 });
 
-//SECRETS
+/// GET ROUTES ///
 
-//Autorization for the super secret  message, only available for authenticated users
-
-// app.get("/secrets", authenticateUser);
-// app.get("/secrets", (req, res) => {
-//   res.json({ secret: "this is the secret" });
-// });
-
-// SHOW COMMENTS
+// SHOW REVIEWS FOR SPECIFIC USER, USER UNIQUE
 app.get("/profile", async (req, res) => {
   const username = req.query.username;
   console.log(username);
@@ -101,20 +75,20 @@ app.get("/profile", async (req, res) => {
   }).sort({ createdAt: "desc" });
 });
 
+//SHOW REVIEWS FOR CHOSEN BOOK
 app.get("/review", async (req, res) => {
   const bookId = req.query.bookId;
-  // console.log(bookId);
   Review.find({ id: bookId }, (err, reviews) => {
     if (err) {
       console.log(err);
       res.status(404).json({ error: "Not found" });
     } else {
       res.json(reviews);
-      // console.log(reviews);
     }
   }).sort({ createdAt: "desc" });
 });
 
+//SHOW FAVOURITE BOOKS FOR SPECIFIC USER
 app.get("/like", async (req, res) => {
   const username = req.query.username;
   Like.find({ username: username }, (err, reviews) => {
@@ -127,7 +101,9 @@ app.get("/like", async (req, res) => {
   }).sort({ createdAt: "desc" });
 });
 
-// ADD BOOK + the COMMENT
+/// POST ROUTES ///
+
+// ADD USER REVIEW WITH ADDITIONAL BOOK INFO
 app.post("/review", async (req, res) => {
   try {
     const review = new Review({
@@ -145,21 +121,6 @@ app.post("/review", async (req, res) => {
     res
       .status(400)
       .json({ errors: err.errors, comment: "Cannot add new comment" });
-  }
-});
-
-//DELETE ONE REVIEW
-app.delete("/:reviewId", async (req, res) => {
-  const { reviewId } = req.params;
-  try {
-    const remove = await Review.findByIdAndDelete(reviewId);
-    remove.save();
-    res.status(201).json(remove);
-  } catch (err) {
-    res.status(400).json({
-      message: "Cannot delete",
-      errors: err.errors
-    });
   }
 });
 
@@ -183,7 +144,24 @@ app.post("/like", async (req, res) => {
   }
 });
 
-//DELETE From FAVOURITES
+/// DELETE ROUTES ///
+
+//DELETE ONE REVIEW
+app.delete("/:reviewId", async (req, res) => {
+  const { reviewId } = req.params;
+  try {
+    const remove = await Review.findByIdAndDelete(reviewId);
+    remove.save();
+    res.status(201).json(remove);
+  } catch (err) {
+    res.status(400).json({
+      message: "Cannot delete",
+      errors: err.errors
+    });
+  }
+});
+
+//DELETE ONE FAVOURITE
 app.delete("/fav/:favId", async (req, res) => {
   const { favId } = req.params;
 

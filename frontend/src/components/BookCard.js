@@ -9,7 +9,6 @@ export const BookCard = ({ image, title, authors }) => {
       <DetailsContainer>
         <h3>{title}</h3>
         <p>by {authors ? authors.join(", ") : "Not provided"}</p>
-        {/* <p>{categories}</p> */}
       </DetailsContainer>
     </>
   );

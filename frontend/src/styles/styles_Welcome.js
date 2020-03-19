@@ -92,7 +92,7 @@ export const ToBuy = styled.a`
   }
 `;
 
-export const PlusButton = styled.button`
+export const HeartButton = styled.button`
   font-size: 1.5rem;
   z-index: 100;
   grid-row: 1 / span 1;

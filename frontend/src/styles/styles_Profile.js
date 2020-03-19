@@ -22,10 +22,14 @@ export const Video = styled.video`
   }
 `;
 
-export const Button = styled.button`
+export const Wrapper = styled.div`
   display: grid;
   grid-template-columns: 15% 70% 15%;
   grid-template-rows: 5% 5% 10% 75% 5%;
+  z-index: 200;
+`;
+
+export const Button = styled.button`
   width: 70%;
   text-align: center;
   text-decoration: none;
@@ -55,4 +59,5 @@ export const Text = styled.p`
   color: #fff;
   font-size: 1.1rem;
   font-weight: 600;
+  z-index: 100;
 `;

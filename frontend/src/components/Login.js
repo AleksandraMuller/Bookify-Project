@@ -26,6 +26,7 @@ import library from "../assets/images/library2.jpg";
 import { auth } from "../reducers/auth";
 
 const URL = "https://bookify-project.herokuapp.com/sessions";
+// const URL = "http://localhost:8080/sessions";
 
 export const Login = () => {
   const [email, setEmail] = useState();
@@ -33,11 +34,6 @@ export const Login = () => {
   const [errorText, setErrorText] = useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
-
-  const myStorage = window.localStorage;
-  const mySessions = window.sessionStorage;
-  console.log(myStorage);
-  console.log(mySessions);
 
   const handleLoginUser = async event => {
     event.preventDefault();
@@ -90,9 +86,7 @@ export const Login = () => {
             ></Input>
           </InputContainer>
           {errorText && <Error>User not found, access forbidden!</Error>}
-          <OrangeButton onClick={event => handleLoginUser(event)}>
-            Login
-          </OrangeButton>
+          <OrangeButton onClick={handleLoginUser}>Login</OrangeButton>
         </LeftContainer>
         <RightContainer>
           <Image src={library} />

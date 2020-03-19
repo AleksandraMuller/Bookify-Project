@@ -6,6 +6,8 @@ import moment from "moment";
 import { ReviewCard } from "./ReviewCard";
 import { Logout } from "./Logout";
 
+import { ErrorButton, ErrorContainer } from "../styles/styles_error";
+
 import { UserContainer } from "../styles/styles_Review";
 import {
   Container,
@@ -15,25 +17,22 @@ import {
   MainTitle
 } from "../styles/styles_reusables";
 
-// const URL = "http://localhost:8080/:reviewId";
+import { getReviews } from "../services/reviews";
 
 export const Review = () => {
   const [reviews, setReviews] = useState([]);
   const name = useSelector(store => store.auth.name);
-  const token = useSelector(store => store.auth.accessToken);
+  const loggedIn = useSelector(store => store.auth.loggedIn);
+
   const history = useHistory();
 
   useEffect(() => {
-    fetch(`https://bookify-project.herokuapp.com/profile?username=${name}`)
-      .then(res => res.json())
-      .then(json => {
-        setReviews(json);
-      });
+    getReviews(name, setReviews);
   }, [name]);
 
   return (
     <Container>
-      {token && (
+      {loggedIn && (
         <Header>
           <ButtonContainer>
             <Logout></Logout>
@@ -45,12 +44,14 @@ export const Review = () => {
           <UserContainer>You are logged in as: {name}</UserContainer>
         </Header>
       )}
-      <MainTitle>
-        Here is the list of all your reviews{" "}
-        <span role="img" aria-labelledby="hand pointing down">
-          👇
-        </span>
-      </MainTitle>
+      {loggedIn && (
+        <MainTitle>
+          Here is the list of all your reviews{" "}
+          <span role="img" aria-labelledby="hand pointing down">
+            👇
+          </span>
+        </MainTitle>
+      )}
       {reviews.map(review => {
         return (
           <ReviewCard
@@ -64,6 +65,14 @@ export const Review = () => {
           ></ReviewCard>
         );
       })}
+      {!loggedIn && (
+        <ErrorContainer>
+          ERROR! No access permitted!{" "}
+          <ErrorButton onClick={() => history.push("/")}>
+            Back to Main Page
+          </ErrorButton>
+        </ErrorContainer>
+      )}
     </Container>
   );
 };
