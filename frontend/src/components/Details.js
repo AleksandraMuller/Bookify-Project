@@ -3,11 +3,18 @@ import { useHistory, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import moment from "moment";
 
+import { DetailsReview } from "./DetailsReview";
+import { Logout } from "./Logout";
+import { DetailsCard } from "./DetailsCard";
+
+import { fetchData } from "../services/books";
+import { fetchReviews, addReview } from "../services/reviews";
+import { AddReview } from "./AddReview";
+
 import {
   ButtonProfile,
   HeaderReview,
   InputReview,
-  ButtonReview,
   Form
 } from "../styles/styles_Details";
 
@@ -17,13 +24,6 @@ import {
   Header,
   ButtonContainer
 } from "../styles/styles_reusables";
-
-import { DetailsReview } from "./DetailsReview";
-import { Logout } from "./Logout";
-import { DetailsCard } from "./DetailsCard";
-
-import { fetchData } from "../services/books";
-import { fetchReviews, addReview } from "../services/reviews";
 
 const URL = "https://bookify-project.herokuapp.com/review";
 // const URL = "http://localhost:8080/review";
@@ -48,34 +48,6 @@ export const Details = () => {
   useEffect(() => {
     fetchReviews(bookId, setReviews);
   }, [bookId]);
-
-  const addReview = event => {
-    event.preventDefault();
-
-    fetch(`${URL}`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        review: userReview,
-        id: bookId,
-        description: details.volumeInfo.description,
-        title: details.volumeInfo.title,
-        authors: details.volumeInfo.authors.join(", "),
-        authorName: name
-      })
-    })
-      .then(res => res.json())
-      .then(json => {
-        const newReviews = [...reviews, json];
-        setReviews(
-          newReviews.sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
-        );
-        setUserReview("");
-      });
-  };
 
   return (
     <Container className="details-section">
@@ -121,12 +93,16 @@ export const Details = () => {
               value={userReview}
               onChange={e => setUserReview(e.target.value)}
             ></InputReview>
-            <ButtonReview onClick={addReview}>
-              Add review{" "}
-              <span role="img" aria-labelledby="smiley">
-                😊
-              </span>
-            </ButtonReview>
+            <AddReview
+              title={details.volumeInfo.title}
+              authors={details.volumeInfo.authors.join(", ")}
+              description={details.volumeInfo.description}
+              setReviews={setReviews}
+              setUserReview={setUserReview}
+              reviews={reviews}
+              bookId={bookId}
+              userReview={userReview}
+            ></AddReview>
           </Form>
           <>
             {reviews.map(review => {

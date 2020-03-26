@@ -25,32 +25,27 @@ export const App = () => {
     <Provider store={store}>
       <BrowserRouter>
         <Switch>
-          <Route path="/" exact>
-            <Main />
-          </Route>
-          <Route path="/register" exact>
-            <Register />
-          </Route>
-          <Route path="/login" exact>
-            <Login />
-          </Route>
-          <Route path="/welcome" exact>
-            <Welcome />
-          </Route>
-          <Route path="/details/:bookId" exact>
-            <Details />
-          </Route>
-          <Route path="/review" exact>
-            <Review />
-          </Route>
-          <Route path="/profile" exact>
-            <Profile />
-          </Route>
-          <Route path="/favourites" exact>
-            <Favourites />
-          </Route>
+          <Route path="/" exact component={Main} />
+          <Route path="/register" exact component={Register} />
+          <Route path="/login" exact component={Login} />
+          <Route path="/welcome" exact component={Welcome} />
+          <Route path="/details/:bookId" exact component={Details} />
+          <Route path="/review" exact component={Review} />
+          <Route path="/profile" exact component={Profile} />
+          <Route path="/favourites" exact component={Favourites} />
         </Switch>
       </BrowserRouter>
     </Provider>
   );
 };
+
+//TO DO:
+//REQUEST HANDLER ?
+//TRAFFIC LIGHTS FOR AUTHENTICATED PATHS
+//EXTRACT ALL FETCHES IF POSSIBLE
+//DEBUGGING IN DEV TOOLS
+//THINK ABOUT COMBINING SOME REDUCERS
+//ADD LOADER WHEN USER CLICKS ON REGISTER BUTTON OR LOGIN BUTTON, OR ANY BUTTON
+//SAVE SEARCHTEXT TO RESTORE
+//IMMER LIBRARY => ALLOWS TO MUTATE STRAIGHT INTO STATE
+//ADD AUTHENTICATION ON ROUTES; NOW

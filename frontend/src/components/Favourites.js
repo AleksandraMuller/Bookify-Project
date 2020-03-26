@@ -17,7 +17,7 @@ import { OneFavourite } from "../styles/styles_Favourites";
 import { getFavourites } from "../services/favourites";
 import { ErrorButton, ErrorContainer } from "../styles/styles_error";
 
-const URL = "https://bookify-project.herokuapp.com";
+// const URL = "https://bookify-project.herokuapp.com";
 // const URL = "http://localhost:8080";
 
 export const Favourites = () => {

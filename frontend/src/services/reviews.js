@@ -29,3 +29,31 @@ export const fetchReviews = (bookId, setReviews) => {
 };
 
 // const URL = "https://bookify-project.herokuapp.com/like";
+
+export const addReview = (book, setReviews, setUserReview, reviews, event) => {
+  event.preventDefault();
+  fetch(`https://bookify-project.herokuapp.com/review`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      review: book.userReview,
+      id: book.bookId,
+      description: book.description,
+      title: book.title,
+      authors: book.authors,
+      authorName: book.name
+    })
+  })
+    .then(res => res.json())
+    .then(json => {
+      console.log(json);
+      const newReviews = [...reviews, json];
+      setReviews(
+        newReviews.sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
+      );
+      setUserReview("");
+    });
+};
