@@ -39,22 +39,6 @@ export const Welcome = () => {
   const name = useSelector(store => store.auth.name);
   const loggedIn = useSelector(store => store.auth.loggedIn);
 
-  // const handleSubmit = event => {
-  //   event.preventDefault();
-  //   fetch(
-  //     `https://www.googleapis.com/books/v1/volumes?maxResults=40&q=${searchText}`
-  //   )
-  //     .then(res => res.json())
-  //     .then(json => {
-  //       setBooks(json.items);
-  //       sessionStorage.setItem("booksArray", JSON.stringify(json.items));
-  //       setSearchText("");
-  //     })
-  //     .catch(error => {
-  //       console.log(error);
-  //     });
-  // };
-
   const removeLocalHistory = () => {
     setBooks([]);
     window.sessionStorage.removeItem("booksArray");

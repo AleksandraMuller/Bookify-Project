@@ -24,6 +24,7 @@ import { OrangeButton, Container } from "../styles/styles_reusables";
 import library from "../assets/images/library2.jpg";
 
 import { auth } from "../reducers/auth";
+import { handleLoginUser } from "../services/auth";
 
 const URL = "https://bookify-project.herokuapp.com/sessions";
 // const URL = "http://localhost:8080/sessions";
@@ -35,34 +36,34 @@ export const Login = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const handleLoginUser = async event => {
-    event.preventDefault();
+  // const handleLoginUser = async event => {
+  //   event.preventDefault();
 
-    fetch(URL, {
-      method: "POST",
-      body: JSON.stringify({ email, password }),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          setErrorText(true);
-          throw new Error("Unable to login, please try again");
-        }
-      })
-      .then(json => {
-        history.push("/welcome");
-        console.log(json);
-        dispatch(auth.actions.setLoggedIn(json.loggedIn));
-        dispatch(auth.actions.setToken(json.accessToken));
-        dispatch(auth.actions.setUser(json.userId));
-        dispatch(auth.actions.setName(json.name));
-      })
-      .catch(err => console.log("error:", err));
-  };
+  //   fetch(URL, {
+  //     method: "POST",
+  //     body: JSON.stringify({ email, password }),
+  //     headers: {
+  //       "Content-Type": "application/json"
+  //     }
+  //   })
+  //     .then(res => {
+  //       if (res.ok) {
+  //         return res.json();
+  //       } else {
+  //         setErrorText(true);
+  //         throw new Error("Unable to login, please try again");
+  //       }
+  //     })
+  //     .then(json => {
+  //       history.push("/welcome");
+  //       console.log(json);
+  //       dispatch(auth.actions.setLoggedIn(json.loggedIn));
+  //       dispatch(auth.actions.setToken(json.accessToken));
+  //       dispatch(auth.actions.setUser(json.userId));
+  //       dispatch(auth.actions.setName(json.name));
+  //     })
+  //     .catch(err => console.log("error:", err));
+  // };
 
   return (
     <Container>
@@ -86,7 +87,21 @@ export const Login = () => {
             ></Input>
           </InputContainer>
           {errorText && <Error>User not found, access forbidden!</Error>}
-          <OrangeButton onClick={handleLoginUser}>Login</OrangeButton>
+          <OrangeButton
+            onClick={event =>
+              handleLoginUser(
+                event,
+                auth,
+                email,
+                password,
+                setErrorText,
+                dispatch,
+                history
+              )
+            }
+          >
+            Login
+          </OrangeButton>
         </LeftContainer>
         <RightContainer>
           <Image src={library} />
