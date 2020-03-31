@@ -73,14 +73,6 @@ export const Welcome = () => {
         </div>
       )}
 
-      {!loggedIn && (
-        <ErrorContainer>
-          ERROR! No access permitted!{" "}
-          <ErrorButton onClick={() => history.push("/")}>
-            Back to Main Page
-          </ErrorButton>
-        </ErrorContainer>
-      )}
       <CardContainer>
         {loggedIn &&
           books !== null &&
@@ -120,6 +112,15 @@ export const Welcome = () => {
             );
           })}
       </CardContainer>
+
+      {!loggedIn && (
+        <ErrorContainer>
+          ERROR! No access permitted!{" "}
+          <ErrorButton onClick={() => history.push("/")}>
+            Back to Main Page
+          </ErrorButton>
+        </ErrorContainer>
+      )}
     </Container>
   );
 };

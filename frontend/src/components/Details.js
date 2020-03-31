@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import moment from "moment";
 
 import { DetailsReview } from "./DetailsReview";
 import { Logout } from "./Logout";
@@ -22,7 +21,8 @@ import {
   Container,
   BlueButton,
   Header,
-  ButtonContainer
+  ButtonContainer,
+  Loader
 } from "../styles/styles_reusables";
 
 const URL = "https://bookify-project.herokuapp.com/review";
@@ -51,9 +51,7 @@ export const Details = () => {
 
   return (
     <Container className="details-section">
-      {loading && !error && loggedIn && (
-        <h2 className="loading">Loading details...</h2>
-      )}
+      {loading && !error && loggedIn && <Loader className="loading"></Loader>}
       {error && loggedIn && <h2 className="loading">Book not found</h2>}
       {!error && !loading && loggedIn && (
         <div>
@@ -104,19 +102,7 @@ export const Details = () => {
               userReview={userReview}
             ></AddReview>
           </Form>
-          <>
-            {reviews.map(review => {
-              return (
-                <DetailsReview
-                  id={review._id}
-                  reviewId={review._id}
-                  name={review.authorName}
-                  review={review.review}
-                  time={moment(review.createdAt).fromNow()}
-                ></DetailsReview>
-              );
-            })}
-          </>
+          <DetailsReview reviews={reviews}></DetailsReview>
         </div>
       )}
       {!loggedIn && (

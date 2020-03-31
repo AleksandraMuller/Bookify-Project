@@ -12,7 +12,7 @@ import {
 } from "../styles/styles_reusables";
 import { Logout } from "./Logout";
 import { FavouriteCard } from "./FavouriteCard";
-import { OneFavourite } from "../styles/styles_Favourites";
+// import { OneFavourite } from "../styles/styles_Favourites";
 
 import { getFavourites } from "../services/favourites";
 import { ErrorButton, ErrorContainer } from "../styles/styles_error";
@@ -54,19 +54,7 @@ export const Favourites = () => {
       )}
       {loggedIn && (
         <CardContainer>
-          {favourites.map(favourite => {
-            return (
-              <OneFavourite>
-                <FavouriteCard
-                  image={favourite.image}
-                  title={favourite.title}
-                  authors={favourite.authors}
-                  cart={favourite.buy}
-                  favId={favourite._id}
-                ></FavouriteCard>
-              </OneFavourite>
-            );
-          })}
+          <FavouriteCard favourites={favourites}></FavouriteCard>
         </CardContainer>
       )}
       {!loggedIn && (

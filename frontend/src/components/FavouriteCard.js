@@ -7,30 +7,38 @@ import {
 } from "../styles/styles_Favourites";
 import { deleteFavourite } from "../services/favourites";
 
-const URL = "https://bookify-project.herokuapp.com";
-// const URL = "http://localhost:8080";
+import { OneFavourite } from "../styles/styles_Favourites";
 
-export const FavouriteCard = ({ image, title, authors, cart, favId }) => {
-  return (
-    <>
-      <Image src={image} />
-      {cart && (
-        <ToBuy href={cart}>
-          <span role="img" aria-labelledby="shopping cart">
-            🛒
+export const FavouriteCard = ({ favourites }) => {
+  const favs = favourites.map(favourite => {
+    return (
+      <OneFavourite>
+        <Image src={favourite.image} />
+        {favourite.buy && (
+          <ToBuy href={favourite.buy}>
+            <span role="img" aria-labelledby="shopping cart">
+              🛒
+            </span>
+          </ToBuy>
+        )}
+        <TextContainer>
+          <h3>{favourite.title}</h3>
+          <p>
+            by{" "}
+            {favourite.authors ? favourite.authors.join(", ") : "Not provided"}
+          </p>
+        </TextContainer>
+        <DeleteButtonFav onClick={() => deleteFavourite(favourite._id)}>
+          Delete{" "}
+          <span role="img" aria-labelledby="delete image">
+            ❌
           </span>
-        </ToBuy>
-      )}
-      <TextContainer>
-        <h3>{title}</h3>
-        <p>by {authors ? authors.join(", ") : "Not provided"}</p>
-      </TextContainer>
-      <DeleteButtonFav onClick={() => deleteFavourite(favId)}>
-        Delete{" "}
-        <span role="img" aria-labelledby="delete image">
-          ❌
-        </span>
-      </DeleteButtonFav>
-    </>
-  );
+        </DeleteButtonFav>
+      </OneFavourite>
+    );
+  });
+
+  return <>{favs}</>;
 };
+
+// TODO: create Card component that is reusable, sent favourite as a prop

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import moment from "moment";
 
 import { ReviewCard } from "./ReviewCard";
 import { Logout } from "./Logout";
@@ -33,38 +32,26 @@ export const Review = () => {
   return (
     <Container>
       {loggedIn && (
-        <Header>
-          <ButtonContainer>
-            <Logout></Logout>
-            <BlueButton onClick={() => history.goBack()}>Back</BlueButton>
-            <BlueButton onClick={() => history.push("/favourites")}>
-              To Favourites
-            </BlueButton>
-          </ButtonContainer>
-          <UserContainer>You are logged in as: {name}</UserContainer>
-        </Header>
+        <>
+          <Header>
+            <ButtonContainer>
+              <Logout></Logout>
+              <BlueButton onClick={() => history.goBack()}>Back</BlueButton>
+              <BlueButton onClick={() => history.push("/favourites")}>
+                To Favourites
+              </BlueButton>
+            </ButtonContainer>
+            <UserContainer>You are logged in as: {name}</UserContainer>
+          </Header>
+          <MainTitle>
+            Here is the list of all your reviews{" "}
+            <span role="img" aria-labelledby="hand pointing down">
+              👇
+            </span>
+          </MainTitle>
+          <ReviewCard reviews={reviews}></ReviewCard>
+        </>
       )}
-      {loggedIn && (
-        <MainTitle>
-          Here is the list of all your reviews{" "}
-          <span role="img" aria-labelledby="hand pointing down">
-            👇
-          </span>
-        </MainTitle>
-      )}
-      {reviews.map(review => {
-        return (
-          <ReviewCard
-            reviewId={review._id}
-            author={review.authorName}
-            authors={review.authors}
-            review={review.review}
-            title={review.title}
-            bookId={review._id}
-            time={moment(review.createdAt).fromNow()}
-          ></ReviewCard>
-        );
-      })}
       {!loggedIn && (
         <ErrorContainer>
           ERROR! No access permitted!{" "}
