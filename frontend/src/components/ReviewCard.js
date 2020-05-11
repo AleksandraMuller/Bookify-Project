@@ -10,8 +10,6 @@ import {
 
 import { handleDelete } from "../services/reviews";
 
-// https://bookify-project.herokuapp.com/${reviewId}
-
 import { DeleteButton } from "../styles/styles_reusables";
 
 export const ReviewCard = props => {

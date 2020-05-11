@@ -34,28 +34,26 @@ export const Favourites = () => {
   return (
     <Container>
       {loggedIn && (
-        <Header>
-          <ButtonContainer>
-            <Logout></Logout>
-            <BlueButton onClick={() => history.goBack()}>Back</BlueButton>
-          </ButtonContainer>
-        </Header>
-      )}
-      {loggedIn && (
-        <MainTitle>
-          <span role="img" aria-labelledby="hearts">
-            ❤️❤️❤️
-          </span>{" "}
-          Your favourites{" "}
-          <span role="img" aria-labelledby="hearts">
-            ❤️❤️❤️
-          </span>
-        </MainTitle>
-      )}
-      {loggedIn && (
-        <CardContainer>
-          <FavouriteCard favourites={favourites}></FavouriteCard>
-        </CardContainer>
+        <>
+          <Header>
+            <ButtonContainer>
+              <Logout></Logout>
+              <BlueButton onClick={() => history.goBack()}>Back</BlueButton>
+            </ButtonContainer>
+          </Header>
+          <MainTitle>
+            <span role="img" aria-labelledby="hearts">
+              ❤️❤️❤️
+            </span>{" "}
+            Your favourites{" "}
+            <span role="img" aria-labelledby="hearts">
+              ❤️❤️❤️
+            </span>
+          </MainTitle>
+          <CardContainer>
+            <FavouriteCard favourites={favourites}></FavouriteCard>
+          </CardContainer>
+        </>
       )}
       {!loggedIn && (
         <ErrorContainer>

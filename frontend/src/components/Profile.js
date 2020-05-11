@@ -31,42 +31,41 @@ export const Profile = () => {
   return (
     <Container>
       {loggedIn && (
-        <Header>
-          <ButtonContainer>
-            <Logout></Logout>
-            <BlueButton onClick={() => history.goBack()}>Back</BlueButton>
-          </ButtonContainer>
-        </Header>
+        <>
+          <Header>
+            <ButtonContainer>
+              <Logout></Logout>
+              <BlueButton onClick={() => history.goBack()}>Back</BlueButton>
+            </ButtonContainer>
+          </Header>
+          <MainTitle>
+            Welcome, {name}{" "}
+            <span role="img" aria-labelledby="persons face"></span>
+            🧑
+          </MainTitle>
+          <FlexContainer>
+            <Button onClick={() => history.push("/review")}>
+              <Wrapper>
+                <Video autoPlay playsInline muted loop>
+                  <source src={book} type="video/mp4"></source>
+                  "Your browser is not supported!"
+                </Video>
+                <Text>Check your reviews</Text>
+              </Wrapper>
+            </Button>
+            <Button onClick={() => history.push("/favourites")}>
+              <Wrapper>
+                <Video autoPlay playsInline muted loop>
+                  <source src={boat} type="video/mp4"></source>
+                  "Your browser is not supported!"
+                </Video>
+                <Text>Discover your favourites</Text>
+              </Wrapper>
+            </Button>
+          </FlexContainer>
+        </>
       )}
-      {loggedIn && (
-        <MainTitle>
-          Welcome, {name}{" "}
-          <span role="img" aria-labelledby="persons face"></span>
-          🧑
-        </MainTitle>
-      )}
-      {loggedIn && (
-        <FlexContainer>
-          <Button onClick={() => history.push("/review")}>
-            <Wrapper>
-              <Video autoPlay playsInline muted loop>
-                <source src={book} type="video/mp4"></source>
-                "Your browser is not supported!"
-              </Video>
-              <Text>Check your reviews</Text>
-            </Wrapper>
-          </Button>
-          <Button onClick={() => history.push("/favourites")}>
-            <Wrapper>
-              <Video autoPlay playsInline muted loop>
-                <source src={boat} type="video/mp4"></source>
-                "Your browser is not supported!"
-              </Video>
-              <Text>Discover your favourites</Text>
-            </Wrapper>
-          </Button>
-        </FlexContainer>
-      )}
+
       {!loggedIn && (
         <ErrorContainer>
           ERROR! No access permitted!{" "}
