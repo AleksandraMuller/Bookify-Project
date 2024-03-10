@@ -1,11 +1,10 @@
 # This file tells netlify where the code for this project is and
 # how it should build the JavaScript assets to deploy from.
 [build]
-  base = "frontend/"
-  publish = "build/"
+  publish = "frontend/build"
   command = "npm run build"
 
 [[build]]
-  base = "backend/"
-  command = "npm run build"  # Adjust the build command based on your backend setup
-  functions = "build/" 
+  command = "npm run build"
+  functions = "backend/build"
+ 
