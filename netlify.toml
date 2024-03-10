@@ -4,4 +4,8 @@
   base = "frontend/"
   publish = "build/"
   command = "npm run build"
-  functions = "backend/functions"
+
+[[build]]
+  base = "backend/"
+  command = "npm run build"  # Adjust the build command based on your backend setup
+  functions = "build/" 
